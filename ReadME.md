@@ -10,6 +10,29 @@ Casual Chess Software is a simple web application that allows users to play casu
 - [Optional] Add chess piece images.
 - [Optional] Implement piece movements.
 - [Optional] Handle user input for moving pieces.
+## Milestones
+
+### 1. Design (UML Diagrams)
+- [ ] Create UML diagrams outlining the project structure.
+- [ ] Review and finalize the design with project stakeholders.
+- [ ] Document design decisions in the README.
+
+### 2. Programming (HTML, CSS, and JS)
+- [ ] Set up the basic project structure with HTML, CSS, and JavaScript files.
+- [ ] Implement the chessboard layout and styling.
+- [ ] [Optional] Add chess piece images.
+- [ ] [Optional] Implement piece movements.
+- [ ] [Optional] Handle user input for moving pieces.
+
+### 3. Testing
+- [ ] Develop and execute unit tests for critical functions.
+- [ ] Perform user testing to identify and fix issues.
+- [ ] Conduct thorough testing to ensure a stable application.
+
+### 4. Project Deadline (1 Jan)
+- [ ] Ensure all features are implemented.
+- [ ] Conduct final testing and bug fixing.
+- [ ] Prepare for project submission.
 
 ## Getting Started
 1. Clone the repository: `git clone https://github.com/your-username/casual-chess.git`
