@@ -26,9 +26,6 @@ Casual Chess Software is a simple web application that allows users to play casu
 ## Contributing
 Contributions are welcome! Please follow our [Contribution Guidelines](CONTRIBUTING.md).
 
-## License
-This project is licensed under the [MIT License](LICENSE).
-
 ## Acknowledgments
 - [Chess piece images source, if applicable]
 
