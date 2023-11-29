@@ -13,8 +13,8 @@ Casual Chess Software is a simple web application that allows users to play casu
 ## Milestones
 
 ### 1. Design (UML Diagrams)
-- [ ] Create UML diagrams outlining the project structure.
-- [ ] Review and finalize the design with project stakeholders.
+- [x] Create UML diagrams outlining the project structure.
+- [x] Review and finalize the design with project stakeholders.
 - [ ] Document design decisions in the README.
 
 ### 2. Programming (HTML, CSS, and JS)
