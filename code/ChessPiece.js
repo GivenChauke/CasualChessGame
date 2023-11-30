@@ -1,13 +1,13 @@
 class ChessPiece{
-    constructor(name,string)
+    constructor(piecename,string)
     {
-        this.name = name;
+        this.name = piecename;
         this.stringRepresentation = string;
     }
-    get Utf(){
+    Utf(){
         return this.stringRepresentation;
     }
-    get name(){
+    getName(){
         return this.name;
     }
     move(){
@@ -16,9 +16,9 @@ class ChessPiece{
 }
 
 class Pawn extends ChessPiece{
-    constructor(name,string)
+    constructor(piecename,string)
     {
-        super(name,string);
+        super(piecename,string);
     }
     move(){//implement pawn movement logic in the board
         return true;
@@ -26,45 +26,45 @@ class Pawn extends ChessPiece{
 }
 
 class Queen extends ChessPiece{
-    constructor(name,string)
+    constructor(piecename,string)
     {
-        super(name,string);
+        super(piecename,string);
     }
     move(){//implement queen movement logic in the board
         return true;
     }
 }
 class King extends ChessPiece{
-    constructor(name,string)
+    constructor(piecename,string)
     {
-        super(name,string);
+        super(piecename,string);
     }
     move(){//implement king movement logic in the board
         return true;
     }
 }
 class Bishop extends ChessPiece{
-    constructor(name,string)
+    constructor(piecename,string)
     {
-        super(name,string);
+        super(piecename,string);
     }
     move(){//implement bishop movement logic in the board
         return true;
     }
 }
 class Knight extends ChessPiece{
-    constructor(name,string)
+    constructor(piecename,string)
     {
-        super(name,string);
+        super(piecename,string);
     }
     move(){//implement knight movement logic in the board
         return true;
     }
 }
 class Rook extends ChessPiece{
-    constructor(name,string)
+    constructor(piecename,string)
     {
-        super(name,string);
+        super(piecename,string);
     }
     move(){//implement rook movement logic in the board
         return true;
@@ -72,18 +72,21 @@ class Rook extends ChessPiece{
 }
 
 class Square extends ChessPiece{
-    constructor(name,string)
+    constructor(piecename,string)
     {
-        super(name,string);
+        super(piecename,string);
     }
     move(){//implement pawn movement logic in the board
         return true;
     }
-    set setPiece(piece)
+    /**
+     * @param {(arg0: Pawn | Queen | King | Bishop | Knight | Rook) => void} newPiece
+     */
+    setPiece(newPiece)
     {
-        this.piece = piece;
+        this.piece = newPiece;
     }
-    get getPiece()
+    getPiece()
     {
         return this.piece;//may be null
     }
@@ -104,6 +107,7 @@ class ChessBoard{
         ];
         this.addChessPieces();
     }
+    
     /**
      * 
      * @returns board to be manipulated using the dom and displayed in index file
@@ -214,11 +218,4 @@ class ChessBoard{
     }
 }
 
-export {ChessBoard};
-export {ChessPiece};
-export {Pawn};
-export {King};
-export {Queen};
-export {Rook};
-export {Bishop};
-export {Knight};
+export { ChessBoard, ChessPiece, Pawn, King, Queen, Rook, Bishop, Knight };
