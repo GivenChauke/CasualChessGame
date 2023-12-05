@@ -90,6 +90,10 @@ class Square extends ChessPiece{
     {
         return this.piece;//may be null
     }
+    getName()
+    {
+        return this.piece? this.piece.getName() : "square";
+    }
 }
 
 class ChessBoard{
