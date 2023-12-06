@@ -5,7 +5,9 @@
     height: 400px; /* Set the height to the same value as the width */
     border: 1px solid #000; /* Optional: Add a border for visualization */
 }
-
+span{
+    box-sizing: border-box;
+}
 .whiteSquare {
     background-color: burlywood;
     text-align: center;
@@ -21,4 +23,7 @@ button{
     width: 50px;
     height: 40px;
     background-color: rgb(205, 251, 255);
+}
+span:hover {
+    border: 2px solid blue;
 }

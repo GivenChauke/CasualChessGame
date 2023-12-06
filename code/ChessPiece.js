@@ -13,6 +13,14 @@ class ChessPiece{
     move(){
         return true;
     }
+    setColor(col)
+    {
+        this.color = col;
+    }
+    getColor()
+    {
+        return this.color;
+    }
 }
 
 class Pawn extends ChessPiece{
@@ -145,21 +153,37 @@ class ChessBoard{
 
         //black pieces
         this.board[0][0].setPiece(new Rook("Rook",'\u265C'));
+        this.board[0][0].getPiece().setColor("black");
         this.board[0][1].setPiece(new Knight("Knight",'\u265E'));
+        this.board[0][1].getPiece().setColor("black");
         this.board[0][2].setPiece(new Bishop("Bishop",'\u265D'));
+        this.board[0][2].getPiece().setColor("black");
         this.board[0][3].setPiece(new Queen("Queen",'\u265B'));
+        this.board[0][3].getPiece().setColor("black");
         this.board[0][4].setPiece(new King("King",'\u265A'));
+        this.board[0][4].getPiece().setColor("black");
         this.board[0][5].setPiece(new Bishop("Bishop",'\u265D'));
+        this.board[0][5].getPiece().setColor("black");
         this.board[0][6].setPiece(new Knight("Knight",'\u265E'));
+        this.board[0][6].getPiece().setColor("black");
         this.board[0][7].setPiece(new Rook("Rook",'\u265C'));
+        this.board[0][7].getPiece().setColor("black");
         this.board[1][0].setPiece(new Pawn("Pawn",'\u265F'));
+        this.board[1][0].getPiece().setColor("black");
         this.board[1][1].setPiece(new Pawn("Pawn",'\u265F'));
+        this.board[1][1].getPiece().setColor("black");
         this.board[1][2].setPiece(new Pawn("Pawn",'\u265F'));
+        this.board[1][2].getPiece().setColor("black");
         this.board[1][3].setPiece(new Pawn("Pawn",'\u265F'));
+        this.board[1][3].getPiece().setColor("black");
         this.board[1][4].setPiece(new Pawn("Pawn",'\u265F'));
+        this.board[1][4].getPiece().setColor("black");
         this.board[1][5].setPiece(new Pawn("Pawn",'\u265F'));
+        this.board[1][5].getPiece().setColor("black");
         this.board[1][6].setPiece(new Pawn("Pawn",'\u265F'));
+        this.board[1][6].getPiece().setColor("black");
         this.board[1][7].setPiece(new Pawn("Pawn",'\u265F'));
+        this.board[1][7].getPiece().setColor("black");
 
         //white Pieces
         /*
@@ -171,21 +195,37 @@ class ChessBoard{
         White Chess Pawn: '\u2659'
         */
         this.board[7][0].setPiece(new Rook("Rook",'\u2656'));
+        this.board[7][0].getPiece().setColor("white");
         this.board[7][1].setPiece(new Knight("Knight",'\u2658'));
+        this.board[7][1].getPiece().setColor("white");
         this.board[7][2].setPiece(new Bishop("Bishop",'\u2657'));
+        this.board[7][2].getPiece().setColor("white");
         this.board[7][3].setPiece(new Queen("Queen",'\u2655'));
+        this.board[7][3].getPiece().setColor("white");
         this.board[7][4].setPiece(new King("King",'\u2654'));
+        this.board[7][4].getPiece().setColor("white");
         this.board[7][5].setPiece(new Bishop("Bishop",'\u2657'));
+        this.board[7][5].getPiece().setColor("white");
         this.board[7][6].setPiece(new Knight("Knight",'\u2658'));
+        this.board[7][6].getPiece().setColor("white");
         this.board[7][7].setPiece(new Rook("Rook",'\u2656'));
+        this.board[7][7].getPiece().setColor("white");
         this.board[6][0].setPiece(new Pawn("Pawn",'\u2659'));
+        this.board[6][0].getPiece().setColor("white");
         this.board[6][1].setPiece(new Pawn("Pawn",'\u2659'));
+        this.board[6][1].getPiece().setColor("white");
         this.board[6][2].setPiece(new Pawn("Pawn",'\u2659'));
+        this.board[6][2].getPiece().setColor("white");
         this.board[6][3].setPiece(new Pawn("Pawn",'\u2659'));
+        this.board[6][3].getPiece().setColor("white");
         this.board[6][4].setPiece(new Pawn("Pawn",'\u2659'));
+        this.board[6][4].getPiece().setColor("white");
         this.board[6][5].setPiece(new Pawn("Pawn",'\u2659'));
+        this.board[6][5].getPiece().setColor("white");
         this.board[6][6].setPiece(new Pawn("Pawn",'\u2659'));
+        this.board[6][6].getPiece().setColor("white");
         this.board[6][7].setPiece(new Pawn("Pawn",'\u2659'));
+        this.board[6][7].getPiece().setColor("white");
     }
     move()
     {

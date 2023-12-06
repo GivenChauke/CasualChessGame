@@ -34,17 +34,21 @@ for (var i = 0; i < boarddisplay.length; i++) {
             if(j %2 == 0)
             {
                 x.classList.add("whiteSquare");
+                x.setAttribute("colorSquare","white");
             }
             else {
                 x.classList.add("blackSquare");
+                x.setAttribute("colorSquare","black");
             }
         }
         else{//odd row white squares are odd
             if(j %2 == 0)
             {
                 x.classList.add("blackSquare");
+                x.setAttribute("colorSquare","black");
             }
             else {
+                x.setAttribute("colorSquare","white");
                 x.classList.add("whiteSquare");
             }
         }
@@ -52,7 +56,8 @@ for (var i = 0; i < boarddisplay.length; i++) {
     }
 }
 
-
+var turn = 1;//white's turn 0 for black turn
+var winner= -1;//1 for white wins and 0 for black wins
 var gameOver = false;//game loop var
 var buttons = document.getElementsByTagName("button");
 var myButton = buttons[0];
@@ -61,27 +66,60 @@ myButton.addEventListener("click", function() {
     gameOver = true;
     alert("Game Over");
 });
-/*
-var turn = 1;//white's turn 0 for black turn
-var winner= -1;//1 for white wins and 0 for black wins
-while(!gameOver)//while not gameOver (Game loop)
-{
 
-}
-function legalMove()
-{
-
-}
-*/
+var selectingPiece = true; // Indicates whether the user is selecting a piece or a destination
+var x1 = 0;
+var y1 = 0;
+var x2 = 0;
+var y2 = 0;
+var rowIndex = 0;
+var colIndex = 0;
+var colorSquaredep = "";
+var colorSquaredes = "";
+var color = "";
 div.addEventListener("click", function (event) {
     // Check if the clicked element is a square
     if (event.target.tagName === "SPAN") {
         // Get the coordinates of the square from custom attributes
-        var rowIndex = event.target.getAttribute("data-row");
-        var colIndex = event.target.getAttribute("data-col");
-
+        rowIndex = event.target.getAttribute("data-row");
+        colIndex = event.target.getAttribute("data-col");
+        color = event.target.getAttribute("colorSquare");
         // Now you have the coordinates (rowIndex, colIndex) of the clicked square
-        console.log("Clicked on square at (" + rowIndex + ", " + colIndex + ")");
+        //console.log("Clicked on square at (" + rowIndex + ", " + colIndex + ")");
+
+        if (boarddisplay[rowIndex][colIndex].getName() === "square" && selectingPiece) {
+            alert("Please select a piece you want to move");
+        } else if (boarddisplay[rowIndex][colIndex].getName() !== "square" && selectingPiece) {
+            alert("Please select the destination square: ");
+            selectingPiece = false;
+            x1 = rowIndex;
+            y1 = colIndex;
+            colorSquaredep = color;
+        } else if (!selectingPiece) {
+            // Now, you're in the "selecting destination" mode
+            alert("Clicked on destination square at (" + rowIndex + ", " + colIndex + ")");
+            x2 = rowIndex;
+            y2 = colIndex;
+            selectingPiece = true; // Reset the mode
+            colorSquaredes = color;
+            legalMove(x1,y1,x2,y2);
+        }
     }
 });
+
+function legalMove(x1, y1, x2, y2) {
+    // Check the turn and pass to board piece move
+    console.log("Departure square: (" + x1 + ", " + y1 + ") Destination Square: "+"(" + x2 + ", " + y2 + ")");
+    //console.log("Departure square color:"+colorSquaredep+" Destination square color: "+colorSquaredes);
+    if (turn === 1 && boarddisplay[x1][y1].getPiece().getColor()!=="white") {
+        alert("It's white's turn to play");
+    }else if(turn === 1 && boarddisplay[x1][y1].getPiece().getColor()==="white"){
+        turn = 0;
+    } else if (turn === 0 && boarddisplay[x1][y1].getPiece().getColor()!=="black") {
+        alert("It's blacks's turn to play");
+    }else if(turn === 0 && boarddisplay[x1][y1].getPiece().getColor()==="black"){
+        turn = 1;
+    } 
+}
+
 }
