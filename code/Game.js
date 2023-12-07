@@ -11,6 +11,8 @@ for (var i = 0; i < boarddisplay.length; i++) {
         console.log(boarddisplay[i][j].getName()+" ");
     } console.log('/n');
 }*/
+displayBoard();
+function displayBoard(){
 for (var i = 0; i < boarddisplay.length; i++) {
     for (var j = 0; j < boarddisplay[i].length; j++) {
 
@@ -55,6 +57,7 @@ for (var i = 0; i < boarddisplay.length; i++) {
         div.appendChild(x);
     }
 }
+}
 
 var turn = 1;//white's turn 0 for black turn
 var winner= -1;//1 for white wins and 0 for black wins
@@ -90,14 +93,14 @@ div.addEventListener("click", function (event) {
         if (boarddisplay[rowIndex][colIndex].getName() === "square" && selectingPiece) {
             alert("Please select a piece you want to move");
         } else if (boarddisplay[rowIndex][colIndex].getName() !== "square" && selectingPiece) {
-            alert("Please select the destination square: ");
+            //alert("Please select the destination square: ");
             selectingPiece = false;
             x1 = rowIndex;
             y1 = colIndex;
             colorSquaredep = color;
         } else if (!selectingPiece) {
             // Now, you're in the "selecting destination" mode
-            alert("Clicked on destination square at (" + rowIndex + ", " + colIndex + ")");
+            //alert("Clicked on destination square at (" + rowIndex + ", " + colIndex + ")");
             x2 = rowIndex;
             y2 = colIndex;
             selectingPiece = true; // Reset the mode
@@ -112,12 +115,16 @@ function legalMove(x1, y1, x2, y2) {
     console.log("Departure square: (" + x1 + ", " + y1 + ") Destination Square: "+"(" + x2 + ", " + y2 + ")");
     //console.log("Departure square color:"+colorSquaredep+" Destination square color: "+colorSquaredes);
     if (turn === 1 && boarddisplay[x1][y1].getPiece().getColor()!=="white") {
-        alert("It's white's turn to play");
+        alert("ERROR: It's white's turn to play");
     }else if(turn === 1 && boarddisplay[x1][y1].getPiece().getColor()==="white"){
+        if(boarddisplay[x1][y1].getPiece().getName() === "Pawn")
+        {board.movePawn(x1,y1,x2,y2);}
         turn = 0;
     } else if (turn === 0 && boarddisplay[x1][y1].getPiece().getColor()!=="black") {
-        alert("It's blacks's turn to play");
+        alert("ERROR: It's blacks's turn to play");
     }else if(turn === 0 && boarddisplay[x1][y1].getPiece().getColor()==="black"){
+        if(boarddisplay[x1][y1].getPiece().getName() === "Pawn")
+        {board.movePawn(x1,y1,x2,y2);}
         turn = 1;
     } 
 }
