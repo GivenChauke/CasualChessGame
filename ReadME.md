@@ -14,16 +14,19 @@ Casual Chess Software is a simple web application that allows users to play casu
 
 ### 1. Design (UML Diagrams)
 - [x] Create UML diagrams outlining the project structure.
-- [x] Review and finalize the design with project stakeholders.
-- [ ] Document design decisions in the README.
+- [x] Review and finalize the design.
 
 ### 2. Programming (HTML, CSS, and JS)
-- [ ] Set up the basic project structure with HTML, CSS, and JavaScript files.
-- [ ] Implement the chessboard layout and styling.
-- [ ] [Optional] Add chess piece images.
-- [ ] [Optional] Implement piece movements.
-- [ ] [Optional] Handle user input for moving pieces.
-
+- [x] Set up the basic project structure with HTML, CSS, and JavaScript files.
+- [x] Implement the chessboard layout and styling.
+- [x] [Optional] Add chess piece images.
+- [x] [Optional] Handle user input for moving pieces.
+- [x] Implement Pawn movement
+- [ ] Implement Bishop movement
+- [ ] Implement Rook movement
+- [ ] Implement Knight movement
+- [ ] Implement King movement
+- [ ] Implement Queen movement
 ### 3. Testing
 - [ ] Develop and execute unit tests for critical functions.
 - [ ] Perform user testing to identify and fix issues.
@@ -35,8 +38,8 @@ Casual Chess Software is a simple web application that allows users to play casu
 - [ ] Prepare for project submission.
 
 ## Getting Started
-1. Clone the repository: `git clone https://github.com/your-username/casual-chess.git`
-2. Open `index.html` in your web browser.
+1. Clone the repository: `git clone https://github.com/GivenChauke/CasualChessGame.git`
+2. Open `index.html` in your web browser on a live server since current web browers do not support js files as modules otherwise you will see a cross-origin error
 
 ## Usage
 - The chessboard is displayed on the page.
@@ -44,20 +47,23 @@ Casual Chess Software is a simple web application that allows users to play casu
 - [Optional] Click on a valid square to move the selected piece.
 
 ## Screenshots
-[Include screenshots or GIFs demonstrating the application in action]
+-![Select Piece to move](img-1.jpg) 
+![Select valid square or another piece to move the selected piece](img2-1.jpg)
 
 ## Contributing
 Contributions are welcome! Please follow our [Contribution Guidelines](CONTRIBUTING.md).
 
 ## Acknowledgments
-- [Chess piece images source, if applicable]
+- Chess Piece use the UTF8 representations of a chessPiece, the decision is for ease of   use and code especially when coding without internent connection
+
 
 ## Future Enhancements
-- [List any planned features or improvements]
+- Potentially more game modes such as single player against a Chess engine at varying degrees of strength
+
 
 ## Author
 Given Chauke
 
 ## Contact
-chaukemnashe@gmail.com
+chaukemnashe123@gmail.com
 
