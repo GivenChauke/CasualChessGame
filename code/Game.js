@@ -118,14 +118,20 @@ function legalMove(x1, y1, x2, y2) {
         alert("ERROR: It's white's turn to play");
     }else if(turn === 1 && boarddisplay[x1][y1].getPiece().getColor()==="white"){
         if(boarddisplay[x1][y1].getPiece().getName() === "Pawn")
-        {board.movePawn(x1,y1,x2,y2);}
-        turn = 0;
+        {
+            if(board.movePawn(x1,y1,x2,y2))
+            turn = 0;
+        }
+        
     } else if (turn === 0 && boarddisplay[x1][y1].getPiece().getColor()!=="black") {
         alert("ERROR: It's blacks's turn to play");
     }else if(turn === 0 && boarddisplay[x1][y1].getPiece().getColor()==="black"){
         if(boarddisplay[x1][y1].getPiece().getName() === "Pawn")
-        {board.movePawn(x1,y1,x2,y2);}
-        turn = 1;
+        {
+            if(board.movePawn(x1,y1,x2,y2))
+            turn = 1;
+        }
+        
     } 
 }
 

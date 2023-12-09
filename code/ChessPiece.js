@@ -243,11 +243,30 @@ class ChessBoard{
                 console.log("X1:"+x1+" X2: "+x2);
                 console.log((x2-1) == x1);
                 console.log(x1);
-                if( x1 == 1) /// start position
+                if( (x1 == 1)&& (y2 == y1)) /// start position
             {
 
-                if((x2-1) == x1 || (x2-2) == x1)//move one or two squares
+                if((x2-1) == x1 || (x2-2) == x1 )//move one or two squares
                 {
+                    if((x2-2 == x1))
+                    {
+                        if(this.board[x2-1][y1].getName() === "square")
+                        {
+                            this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
+                            this.board[x1][y1].setPiece(null);
+        
+                            // Update the span content at the original coordinates
+                            document.querySelector(`span[data-row="${x1}"][data-col="${y1}"]`).innerHTML = "";
+        
+                            // Update the span content at the new coordinates
+                            document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+                            return true;
+                        }
+                        else{
+                            alert("Error: Illegal pawn move");
+                            return false;
+                        }
+                    }
                     this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
                     this.board[x1][y1].setPiece(null);
 
@@ -256,15 +275,15 @@ class ChessBoard{
 
                     // Update the span content at the new coordinates
                     document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
-                    return;
+                    return true;
                 }
                 else {
                     alert("Error: Illegal pawn move");
-                    return;
+                    return false;
                 }
             }
             else{//not starting position
-                if((x2-1) == x1 )//move one square
+                if(((x2-1) == x1 )&& (y2 == y1))//move one square
                 {
                     this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
                     this.board[x1][y1].setPiece(null);
@@ -274,11 +293,11 @@ class ChessBoard{
 
                     // Update the span content at the new coordinates
                     document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
-                    return;
+                    return true;
                 }
                 else {
                     alert("Error: Illegal pawn move");
-                    return;
+                    return false;
                 }
             }
         }
@@ -286,10 +305,10 @@ class ChessBoard{
             console.log("X1:"+x1+" X2: "+x2);
             console.log((x1-1) == x2);
             console.log(x1);
-            if(x1 == 6 ) /// start position
+            if((x1 == 6) && (y2 == y1) ) /// start position
             {
                 console.log(x1);
-                if((x1-1) == x2 || (x1-2) == x2)//move one or two squares
+                if(((x1-1) == x2 || (x1-2) == x2) &&(this.board[x1-1][y1].getName() === "square"))//move one or two squares
                 {
                     this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
                     this.board[x1][y1].setPiece(null);
@@ -298,15 +317,15 @@ class ChessBoard{
 
                     // Update the span content at the new coordinates
                     document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
-                    return;
+                    return true;
                 }
                 else {
                     alert("Error: Illegal pawn move");
-                    return;
+                    return false;
                 }
             }
             else{//not starting position
-                if((x1-1) == x2 )//move one square
+                if(((x1-1) == x2) && (y2 == y1))//move one square
                 {
                     this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
                     this.board[x1][y1].setPiece(null);
@@ -315,21 +334,23 @@ class ChessBoard{
 
                     // Update the span content at the new coordinates
                     document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
-                    return;
+                    return true;
                 }
                 else {
                     alert("Error: Illegal pawn move");
-                    return;
+                    return false;
                 }
             }
         }
         }
         else{//capture 
-            if(this.board[x1][y1].getColor()==="black")//black pawn captures
+            if(this.board[x1][y1].getPiece().getColor()==="black")//black pawn captures
             {
-                if(this.board[x2][y2].getColor()!=="black"){
-                if(((x1+1) == x2) && ((y1+1) == y2 || (y1-1) == y2))
-                {
+                if(this.board[x2][y2].getPiece().getColor()!=="black"){
+                    console.log((x2-1) == x1);
+                    console.log(((y1-1) == y2 || (y2-1) == y1));
+                if(((x2-1) == x1) && ((y1-1) == y2 || (y2-1) == y1))
+                {//if(((x1-1) == x2) && ((y2-1) == y1 || (y1-1) == y2))
                     this.board[x2][y2].setPiece(null);
                     this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
                     this.board[x1][y1].setPiece(null);
@@ -339,21 +360,21 @@ class ChessBoard{
 
                     // Update the span content at the new coordinates
                     document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
-                    return;
+                    return true;
                 }
                 else{
                     alert("Error: illegal capture");
-                    return;
+                    return false;
                 }
             }
                 else{
                     alert("Error: you can't capture your own piece dawg lol");
-                    return;
+                    return false;
                 }
             }
             else{//white pawn captures
-                if(this.board[x2][y2].getColor()!=="white"){
-                    if(((x1-1) == x2) && ((y1+1) == y2 || (y1-1) == y2))
+                if(this.board[x2][y2].getPiece().getColor()!=="white"){
+                    if(((x1-1) == x2) && ((y2-1) == y1 || (y1-1) == y2))
                     {
                         this.board[x2][y2].setPiece(null);
                         this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
@@ -364,16 +385,16 @@ class ChessBoard{
 
                         // Update the span content at the new coordinates
                         document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
-                        return;
+                        return true;
                     }
                     else{
                         alert("Error: illegal capture");
-                        return;
+                        return false;
                     }
                 }
                 else{
                     alert("Error: you can't capture your own piece dawg lol");
-                    return;
+                    return false;
                 }
             }
         }
