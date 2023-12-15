@@ -118,8 +118,38 @@ class ChessBoard{
             [new Square("square",""),new Square("square",""),new Square("square",""),new Square("square",""),new Square("square",""),new Square("square",""),new Square("square",""),new Square("square","")]
         ];
         this.addChessPieces();
+        this.recentMove = {
+            from: { row: 0, col: 0 },  // Square from which the piece moved
+            to: { row: 0, col: 0 },    // Square to which the piece moved
+            piece: null  // The piece that moved
+        };
+        
     }
-    
+    /**
+     * make a successful move on the JSON object for bookeeeping 
+     */
+    makeMove(fromRow, fromCol, toRow, toCol) {
+        // Your move logic here...
+
+        // Update recentMove
+        this.recentMove.from = { row: fromRow, col: fromCol };
+        this.recentMove.to = { row: toRow, col: toCol };
+        this.recentMove.piece = this.board[fromRow][fromCol].getPiece();
+    }
+    IsrecentWhite(x,y)
+    {
+        return (this.recentMove.to.row === x) && (this.recentMove.to.col === y) && (Number(this.recentMove.from.row) === Number(Number(x)+Number(2))) && (this.recentMove.from.col === y);
+    }
+    IsrecentBlack(x,y)
+    {
+        return (this.recentMove.to.row === x) && (this.recentMove.to.col === y) && (Number(this.recentMove.from.row) === Number(Number(x)-Number(2))) && (this.recentMove.from.col === y);
+    }
+    /**
+     *@returns recent move object
+     */
+    getRecentMove() {
+        return this.recentMove;
+    }
     /**
      * 
      * @returns board to be manipulated using the dom and displayed in index file
@@ -234,15 +264,24 @@ class ChessBoard{
     movePawn(x1,y1,x2,y2)
     {
         //if destination has no piece (just a move)
-        console.log(this.board[x2][y2].getName() === "square");
-        console.log(this.board[x1][y1].getPiece().getColor()==="black");
         if(this.board[x2][y2].getName() === "square")
         {
             if(this.board[x1][y1].getPiece().getColor()==="black")//black pawn moves
             {
-                console.log("X1:"+x1+" X2: "+x2);
-                console.log((x2-1) == x1);
-                console.log(x1);
+            //Enpassant Capture(black pawn captures edge case) PROBLEM HERE
+            if(this.IsrecentWhite(x1,y2) &&(x1==4)&&((x2-1) == x1) && ((y1-1) == y2 || (y2-1) == y1)&&(this.board[x1][y2].getName() !== "square")&&(this.board[x1][y2].getPiece().getColor()!=="black"))
+            {
+                this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
+                this.board[x1][y1].setPiece(null);
+                this.board[x1][y2].setPiece(null);
+                // Update the span content at the original coordinates
+                document.querySelector(`span[data-row="${x1}"][data-col="${y1}"]`).innerHTML = "";
+                document.querySelector(`span[data-row="${x1}"][data-col="${y2}"]`).innerHTML = "";
+                // Update the span content at the new coordinates
+                document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+                this.makeMove(x1,y1,x2,y2);
+                return true;
+            }
                 if( (x1 == 1)&& (y2 == y1)) /// start position
             {
 
@@ -260,6 +299,7 @@ class ChessBoard{
         
                             // Update the span content at the new coordinates
                             document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+                            this.makeMove(x1,y1,x2,y2);
                             return true;
                         }
                         else{
@@ -275,6 +315,7 @@ class ChessBoard{
 
                     // Update the span content at the new coordinates
                     document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+                    this.makeMove(x1,y1,x2,y2);
                     return true;
                 }
                 else {
@@ -293,6 +334,7 @@ class ChessBoard{
 
                     // Update the span content at the new coordinates
                     document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+                    this.makeMove(x1,y1,x2,y2);
                     return true;
                 }
                 else {
@@ -302,12 +344,22 @@ class ChessBoard{
             }
         }
         else {//white pawn moves
-            console.log("X1:"+x1+" X2: "+x2);
-            console.log((x1-1) == x2);
-            console.log(x1);
+            //Enpassant Capture(white pawn captures edge case)
+            if(this.IsrecentBlack(x1,y2) &&(x1==3)&&((x1-1) == x2) && ((y2-1) == y1 || (y1-1) == y2)&&(this.board[x1][y2].getName() !== "square")&&(this.board[x1][y2].getPiece().getColor()!=="white"))
+            {
+                this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
+                this.board[x1][y1].setPiece(null);
+                this.board[x1][y2].setPiece(null);
+                // Update the span content at the original coordinates
+                document.querySelector(`span[data-row="${x1}"][data-col="${y1}"]`).innerHTML = "";
+                document.querySelector(`span[data-row="${x1}"][data-col="${y2}"]`).innerHTML = "";
+                // Update the span content at the new coordinates
+                document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+                this.makeMove(x1,y1,x2,y2);
+                return true;
+            }
             if((x1 == 6) && (y2 == y1) ) /// start position
             {
-                console.log(x1);
                 if(((x1-1) == x2 || (x1-2) == x2) &&(this.board[x1-1][y1].getName() === "square"))//move one or two squares
                 {
                     this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
@@ -317,6 +369,7 @@ class ChessBoard{
 
                     // Update the span content at the new coordinates
                     document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+                    this.makeMove(x1,y1,x2,y2);
                     return true;
                 }
                 else {
@@ -334,6 +387,7 @@ class ChessBoard{
 
                     // Update the span content at the new coordinates
                     document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+                    this.makeMove(x1,y1,x2,y2);
                     return true;
                 }
                 else {
@@ -347,8 +401,6 @@ class ChessBoard{
             if(this.board[x1][y1].getPiece().getColor()==="black")//black pawn captures
             {
                 if(this.board[x2][y2].getPiece().getColor()!=="black"){
-                    console.log((x2-1) == x1);
-                    console.log(((y1-1) == y2 || (y2-1) == y1));
                 if(((x2-1) == x1) && ((y1-1) == y2 || (y2-1) == y1))
                 {//if(((x1-1) == x2) && ((y2-1) == y1 || (y1-1) == y2))
                     this.board[x2][y2].setPiece(null);
@@ -360,6 +412,7 @@ class ChessBoard{
 
                     // Update the span content at the new coordinates
                     document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+                    this.makeMove(x1,y1,x2,y2);
                     return true;
                 }
                 else{
@@ -380,11 +433,12 @@ class ChessBoard{
                         this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
                         this.board[x1][y1].setPiece(null);
 
-                                            // Update the span content at the original coordinates
+                        // Update the span content at the original coordinates
                         document.querySelector(`span[data-row="${x1}"][data-col="${y1}"]`).innerHTML = "";
 
                         // Update the span content at the new coordinates
                         document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+                        this.makeMove(x1,y1,x2,y2);
                         return true;
                     }
                     else{

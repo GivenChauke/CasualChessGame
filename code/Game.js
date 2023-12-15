@@ -117,11 +117,38 @@ function legalMove(x1, y1, x2, y2) {
     if (turn === 1 && boarddisplay[x1][y1].getPiece().getColor()!=="white") {
         alert("ERROR: It's white's turn to play");
     }else if(turn === 1 && boarddisplay[x1][y1].getPiece().getColor()==="white"){
-        if(boarddisplay[x1][y1].getPiece().getName() === "Pawn")
-        {
-            if(board.movePawn(x1,y1,x2,y2))
-            turn = 0;
+// Inside the block where you check for pawn promotion
+if (boarddisplay[x1][y1].getPiece().getName() === "Pawn") {
+    if (board.movePawn(x1, y1, x2, y2)) {
+        turn = 0;
+        if (Number(x2) === Number(0)) { // White pawn promoted
+            // Create a div for pawn promotion options
+            var promotionDiv = document.createElement("div");
+            promotionDiv.id = "promotionDiv";
+            promotionDiv.innerHTML = "Choose your promotion:";
+
+            // Define chess piece options
+            var pieceOptions = ['\u2655', '\u2656', '\u2657', '\u2658'];
+
+            // Populate the div with clickable spans
+            pieceOptions.forEach(piece => {
+                var pieceSpan = document.createElement("span");
+                pieceSpan.innerHTML = piece; // Replace this with your function to get UTF representation
+                pieceSpan.addEventListener("click", function () {
+                    // Replace the pawn with the chosen piece
+                    document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = piece;
+                    // Remove the promotion div
+                    document.body.removeChild(promotionDiv);
+                });
+                promotionDiv.appendChild(pieceSpan);
+            });
+
+            // Append the promotion div to the body
+            document.body.appendChild(promotionDiv);
         }
+    }
+}
+
         
     } else if (turn === 0 && boarddisplay[x1][y1].getPiece().getColor()!=="black") {
         alert("ERROR: It's blacks's turn to play");
@@ -129,7 +156,34 @@ function legalMove(x1, y1, x2, y2) {
         if(boarddisplay[x1][y1].getPiece().getName() === "Pawn")
         {
             if(board.movePawn(x1,y1,x2,y2))
-            turn = 1;
+            {
+                turn = 1;
+                if (Number(x2) === Number(7)) { // White pawn promoted
+                    // Create a div for pawn promotion options
+                    var promotionDiv = document.createElement("div");
+                    promotionDiv.id = "promotionDiv";
+                    promotionDiv.innerHTML = "Choose your promotion:";
+        
+                    // Define chess piece options
+                    var pieceOptions = ['\u265B', '\u265C', '\u265D', '\u265E'];
+        
+                    // Populate the div with clickable spans
+                    pieceOptions.forEach(piece => {
+                        var pieceSpan = document.createElement("span");
+                        pieceSpan.innerHTML = piece; // Replace this with your function to get UTF representation
+                        pieceSpan.addEventListener("click", function () {
+                            // Replace the pawn with the chosen piece
+                            document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = piece;
+                            // Remove the promotion div
+                            document.body.removeChild(promotionDiv);
+                        });
+                        promotionDiv.appendChild(pieceSpan);
+                    });
+        
+                    // Append the promotion div to the body
+                    document.body.appendChild(promotionDiv);
+                }
+            }
         }
         
     } 
