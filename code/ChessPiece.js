@@ -465,6 +465,14 @@ class ChessBoard{
     {
         //move king on the board
     }
+    /**
+     * takes in coordinates 
+     * to move a bishop (capture or move)
+     * @param {departure x position} x1 
+     * @param {departure y position} y1 
+     * @param {destination x position} x2 
+     * @param {destination y position} y2 
+     */
     moveBishop(x1,y1,x2,y2)
     {
         //move bishop on the board
@@ -475,7 +483,7 @@ class ChessBoard{
             var y = y1;
             var x3 = x2;
             var y3 = y2;
-            if(this.br(x1+1,y1+1,x2,y2,false)){
+            if(this.br(x1,y1,x2,y2,false)){
                 this.board[x3][y3].setPiece(this.board[x][y].getPiece());
                 this.board[x][y].setPiece(null);
 
@@ -487,16 +495,43 @@ class ChessBoard{
                 this.makeMove(x,y,x3,y3);
                 return true;
             }
-            else if(this.bl(x1+1,y1-1,x2,y2))
+            else if(this.bl(x1,y1,x2,y2,false))
             {
+                this.board[x3][y3].setPiece(this.board[x][y].getPiece());
+                this.board[x][y].setPiece(null);
+
+                // Update the span content at the original coordinates
+                document.querySelector(`span[data-row="${x}"][data-col="${y}"]`).innerHTML = "";
+
+                // Update the span content at the new coordinates
+                document.querySelector(`span[data-row="${x3}"][data-col="${y3}"]`).innerHTML = this.board[x3][y3].getPiece().Utf();
+                this.makeMove(x,y,x3,y3);
                 return true;
             }
-            else if(this.tr(x1-1,y1+1,x2,y2))
+            else if(this.tr(x1,y1,x2,y2,false))
             {
+                this.board[x3][y3].setPiece(this.board[x][y].getPiece());
+                this.board[x][y].setPiece(null);
+
+                // Update the span content at the original coordinates
+                document.querySelector(`span[data-row="${x}"][data-col="${y}"]`).innerHTML = "";
+
+                // Update the span content at the new coordinates
+                document.querySelector(`span[data-row="${x3}"][data-col="${y3}"]`).innerHTML = this.board[x3][y3].getPiece().Utf();
+                this.makeMove(x,y,x3,y3);
                 return true;
             }
-            else if(this.tl(x1-1,y1-1,x2,y2))
+            else if(this.tl(x1,y1,x2,y2,false))
             {
+                this.board[x3][y3].setPiece(this.board[x][y].getPiece());
+                this.board[x][y].setPiece(null);
+
+                // Update the span content at the original coordinates
+                document.querySelector(`span[data-row="${x}"][data-col="${y}"]`).innerHTML = "";
+
+                // Update the span content at the new coordinates
+                document.querySelector(`span[data-row="${x3}"][data-col="${y3}"]`).innerHTML = this.board[x3][y3].getPiece().Utf();
+                this.makeMove(x,y,x3,y3);
                 return true;
             }
             else{
@@ -517,11 +552,15 @@ class ChessBoard{
      */
     br(x1,y1,x2,y2,capture)
     {
+        console.log("x1: "+x1+" x1: "+y1);
+        console.log("x2: "+x2+" y2: "+y2);
         if(Number(x1)<=Number(7) && Number(x1)>=Number(0) && Number(y1)<=Number(7) && Number(y1)>=Number(0) && Number(x2)<=Number(7) && Number(x2)>=Number(0) && Number(y2)<=Number(7) && Number(y2)>=Number(0))
         {
-            if(this.board[x1][y1].getName() === "square")
+            if(!capture)
             {
-                return this.br(x1+1,y1+1,x2,y2,capture);
+                if(Number(x1) === Number(x2) && Number(y1) === Number(y2))
+                return true;
+                else return this.br(++x1,++y1,x2,y2,capture);
             }
             else//possible capture
             {
@@ -543,9 +582,30 @@ class ChessBoard{
      * @param {destination x position} x2 
      * @param {destination y position} y2 
      */
-    bl(x1,y1,x2,y2)
+    bl(x1,y1,x2,y2,capture)
     {
-
+        console.log("x1: "+x1+" x1: "+y1);
+        console.log("x2: "+x2+" y2: "+y2);
+        if(Number(x1)<=Number(7) && Number(x1)>=Number(0) && Number(y1)<=Number(7) && Number(y1)>=Number(0) && Number(x2)<=Number(7) && Number(x2)>=Number(0) && Number(y2)<=Number(7) && Number(y2)>=Number(0))
+        {
+            if(!capture )
+            {
+                if(Number(x1) === Number(x2) && Number(y1) === Number(y2))
+                return true;
+                else return this.bl(++x1,--y1,x2,y2,false);
+            }
+            else//possible capture
+            {
+                if(capture && Number(x1) === Number(x2) && Number(y1) === Number(y2) )
+                {
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+        }
+        else return false;
     }
     /**
      * helper function that moves bishop in a top left diagonal
@@ -554,9 +614,32 @@ class ChessBoard{
      * @param {destination x position} x2 
      * @param {destination y position} y2 
      */
-    tl(x1,y1,x2,y2)
+    tl(x1,y1,x2,y2,capture)
     {
-
+        console.log("x1: "+x1+" x1: "+y1);
+        console.log("x2: "+x2+" y2: "+y2);
+        if(Number(x1)<=Number(7) && Number(x1)>=Number(0) && Number(y1)<=Number(7) && Number(y1)>=Number(0) && Number(x2)<=Number(7) && Number(x2)>=Number(0) && Number(y2)<=Number(7) && Number(y2)>=Number(0))
+        {
+            //console.log("recursive case");
+            if(!capture)
+            {
+                //console.log("recursive case");
+                if(Number(x1) === Number(x2) && Number(y1) === Number(y2))
+                return true;
+                else return this.tl(--x1,--y1,x2,y2,false);
+            }
+            else//possible capture
+            {
+                if(capture && Number(x1) === Number(x2) && Number(y1) === Number(y2) )
+                {
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+        }
+        else return false;
     }
     /**
      * helper function that moves bishop in a top right diagonal
@@ -565,9 +648,30 @@ class ChessBoard{
      * @param {destination x position} x2 
      * @param {destination y position} y2 
      */
-    tr(x1,y1,x2,y2)
+    tr(x1,y1,x2,y2,capture)
     {
-
+        console.log("x1: "+x1+" x1: "+y1);
+        console.log("x2: "+x2+" y2: "+y2);
+        if(Number(x1)<=Number(7) && Number(x1)>=Number(0) && Number(y1)<=Number(7) && Number(y1)>=Number(0) && Number(x2)<=Number(7) && Number(x2)>=Number(0) && Number(y2)<=Number(7) && Number(y2)>=Number(0))
+        {
+            if(!capture)
+            {
+                if(Number(x1) === Number(x2) && Number(y1) === Number(y2))
+                return true;
+                else return this.tr(--x1,++y1,x2,y2,false);
+            }
+            else//possible capture
+            {
+                if(capture && Number(x1) === Number(x2) && Number(y1) === Number(y2) )
+                {
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+        }
+        else return false;
     }
     moveKnight()
     {
