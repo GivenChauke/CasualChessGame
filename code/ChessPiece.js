@@ -540,7 +540,72 @@ class ChessBoard{
             }
         }
         else{//capture
-
+            if((this.board[x1][y1].getPiece().getColor()==="black" && this.board[x2][y2].getPiece().getColor()!=="black") ||(this.board[x1][y1].getPiece().getColor()==="white" && this.board[x2][y2].getPiece().getColor()!=="white"))//black bishop captures
+            {
+                    var x = x1;
+                    var y = y1;
+                    var x3 = x2;
+                    var y3 = y2;
+                    if(this.br(x1,y1,x2,y2,true)){
+                        this.board[x3][y3].setPiece(this.board[x][y].getPiece());
+                        this.board[x][y].setPiece(null);
+        
+                        // Update the span content at the original coordinates
+                        document.querySelector(`span[data-row="${x}"][data-col="${y}"]`).innerHTML = "";
+        
+                        // Update the span content at the new coordinates
+                        document.querySelector(`span[data-row="${x3}"][data-col="${y3}"]`).innerHTML = this.board[x3][y3].getPiece().Utf();
+                        this.makeMove(x,y,x3,y3);
+                        return true;
+                    }
+                    else if(this.bl(x1,y1,x2,y2,true))
+                    {
+                        this.board[x3][y3].setPiece(this.board[x][y].getPiece());
+                        this.board[x][y].setPiece(null);
+        
+                        // Update the span content at the original coordinates
+                        document.querySelector(`span[data-row="${x}"][data-col="${y}"]`).innerHTML = "";
+        
+                        // Update the span content at the new coordinates
+                        document.querySelector(`span[data-row="${x3}"][data-col="${y3}"]`).innerHTML = this.board[x3][y3].getPiece().Utf();
+                        this.makeMove(x,y,x3,y3);
+                        return true;
+                    }
+                    else if(this.tr(x1,y1,x2,y2,true))
+                    {
+                        this.board[x3][y3].setPiece(this.board[x][y].getPiece());
+                        this.board[x][y].setPiece(null);
+        
+                        // Update the span content at the original coordinates
+                        document.querySelector(`span[data-row="${x}"][data-col="${y}"]`).innerHTML = "";
+        
+                        // Update the span content at the new coordinates
+                        document.querySelector(`span[data-row="${x3}"][data-col="${y3}"]`).innerHTML = this.board[x3][y3].getPiece().Utf();
+                        this.makeMove(x,y,x3,y3);
+                        return true;
+                    }
+                    else if(this.tl(x1,y1,x2,y2,true))
+                    {
+                        this.board[x3][y3].setPiece(this.board[x][y].getPiece());
+                        this.board[x][y].setPiece(null);
+        
+                        // Update the span content at the original coordinates
+                        document.querySelector(`span[data-row="${x}"][data-col="${y}"]`).innerHTML = "";
+        
+                        // Update the span content at the new coordinates
+                        document.querySelector(`span[data-row="${x3}"][data-col="${y3}"]`).innerHTML = this.board[x3][y3].getPiece().Utf();
+                        this.makeMove(x,y,x3,y3);
+                        return true;
+                    }
+                    else{
+                        alert("Error: illegal capture");
+                        return false;
+                    }
+            }
+            else{
+                alert("Error: you can't capture your own piece dawg lol");
+                return false;
+            }
         }
     }
     /**
@@ -552,15 +617,14 @@ class ChessBoard{
      */
     br(x1,y1,x2,y2,capture)
     {
-        console.log("x1: "+x1+" x1: "+y1);
-        console.log("x2: "+x2+" y2: "+y2);
+        if(Number(x1)+Number(1)>Number(7)||Number(y1)+Number(1)>Number(7)) return false;
         if(Number(x1)<=Number(7) && Number(x1)>=Number(0) && Number(y1)<=Number(7) && Number(y1)>=Number(0) && Number(x2)<=Number(7) && Number(x2)>=Number(0) && Number(y2)<=Number(7) && Number(y2)>=Number(0))
         {
-            if(!capture)
+            if(this.board[++x1][++y1].getName() === "square"  && !capture )
             {
                 if(Number(x1) === Number(x2) && Number(y1) === Number(y2))
                 return true;
-                else return this.br(++x1,++y1,x2,y2,capture);
+                else return this.br(x1,y1,x2,y2,capture);
             }
             else//possible capture
             {
@@ -568,6 +632,7 @@ class ChessBoard{
                 {
                     return true;
                 }
+                else if(capture) return this.br(x1,y1,x2,y2,capture);
                 else{
                     return false;
                 }
@@ -584,15 +649,15 @@ class ChessBoard{
      */
     bl(x1,y1,x2,y2,capture)
     {
-        console.log("x1: "+x1+" x1: "+y1);
-        console.log("x2: "+x2+" y2: "+y2);
+        if(Number(x1)+ Number(1) > 7 || Number(y1)- Number(1)<0)
+        return false;
         if(Number(x1)<=Number(7) && Number(x1)>=Number(0) && Number(y1)<=Number(7) && Number(y1)>=Number(0) && Number(x2)<=Number(7) && Number(x2)>=Number(0) && Number(y2)<=Number(7) && Number(y2)>=Number(0))
         {
-            if(!capture )
+            if(this.board[++x1][--y1].getName() === "square" && !capture )
             {
                 if(Number(x1) === Number(x2) && Number(y1) === Number(y2))
                 return true;
-                else return this.bl(++x1,--y1,x2,y2,false);
+                else return this.bl(x1,y1,x2,y2,false);
             }
             else//possible capture
             {
@@ -600,6 +665,7 @@ class ChessBoard{
                 {
                     return true;
                 }
+                else if(capture) return this.bl(x1,y1,x2,y2,capture);
                 else{
                     return false;
                 }
@@ -616,17 +682,17 @@ class ChessBoard{
      */
     tl(x1,y1,x2,y2,capture)
     {
-        console.log("x1: "+x1+" x1: "+y1);
-        console.log("x2: "+x2+" y2: "+y2);
+        if(Number(x1)- Number(1) <0 || Number(y1)- Number(1)<0)
+        return false;
         if(Number(x1)<=Number(7) && Number(x1)>=Number(0) && Number(y1)<=Number(7) && Number(y1)>=Number(0) && Number(x2)<=Number(7) && Number(x2)>=Number(0) && Number(y2)<=Number(7) && Number(y2)>=Number(0))
         {
             //console.log("recursive case");
-            if(!capture)
+            if(this.board[--x1][--y1].getName() === "square" && !capture)
             {
                 //console.log("recursive case");
                 if(Number(x1) === Number(x2) && Number(y1) === Number(y2))
                 return true;
-                else return this.tl(--x1,--y1,x2,y2,false);
+                else return this.tl(x1,y1,x2,y2,false);
             }
             else//possible capture
             {
@@ -634,6 +700,7 @@ class ChessBoard{
                 {
                     return true;
                 }
+                else if(capture) return this.tl(x1,y1,x2,y2,capture);
                 else{
                     return false;
                 }
@@ -650,15 +717,15 @@ class ChessBoard{
      */
     tr(x1,y1,x2,y2,capture)
     {
-        console.log("x1: "+x1+" x1: "+y1);
-        console.log("x2: "+x2+" y2: "+y2);
+        if(Number(x1)- Number(1) <0 || Number(y1)+ Number(1)>7)
+        return false;
         if(Number(x1)<=Number(7) && Number(x1)>=Number(0) && Number(y1)<=Number(7) && Number(y1)>=Number(0) && Number(x2)<=Number(7) && Number(x2)>=Number(0) && Number(y2)<=Number(7) && Number(y2)>=Number(0))
         {
-            if(!capture)
+            if(this.board[--x1][++y1].getName() === "square" && !capture )
             {
                 if(Number(x1) === Number(x2) && Number(y1) === Number(y2))
                 return true;
-                else return this.tr(--x1,++y1,x2,y2,false);
+                else return this.tr(x1,y1,x2,y2,false);
             }
             else//possible capture
             {
@@ -666,6 +733,7 @@ class ChessBoard{
                 {
                     return true;
                 }
+                else if(capture)return this.tr(x1,y1,x2,y2,capture);
                 else{
                     return false;
                 }
