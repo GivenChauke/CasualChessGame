@@ -24,7 +24,7 @@ Casual Chess Software is a simple web application that allows users to play casu
 - [x] Implement Pawn movement
 - [X] Implement Bishop movement
 - [ ] Implement Rook movement
-- [ ] Implement Knight movement
+- [x] Implement Knight movement
 - [ ] Implement King movement
 - [ ] Implement Queen movement
 ### 3. Testing

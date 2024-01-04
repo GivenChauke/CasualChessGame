@@ -153,6 +153,12 @@ if (boarddisplay[x1][y1].getPiece().getName() === "Pawn") {
         if (board.moveBishop(x1, y1, x2, y2)) {
             turn = 0;
         }
+    }
+    else if(boarddisplay[x1][y1].getPiece().getName() === "Knight")
+    {
+        if (board.moveKnight(x1, y1, x2, y2)) {
+            turn = 0;
+        }
     }  
     } else if (turn === 0 && boarddisplay[x1][y1].getPiece().getColor()!=="black") {
         alert("ERROR: It's blacks's turn to play");
@@ -195,7 +201,12 @@ if (boarddisplay[x1][y1].getPiece().getName() === "Pawn") {
             turn = 1;
         }
     } 
-        
+    else if(boarddisplay[x1][y1].getPiece().getName() === "Knight")
+    {
+        if (board.moveKnight(x1, y1, x2, y2)) {
+            turn = 1;
+        }
+    }   
     } 
 }
 

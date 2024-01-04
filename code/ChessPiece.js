@@ -741,9 +741,152 @@ class ChessBoard{
         }
         else return false;
     }
-    moveKnight()
+    /**
+     * takes in coordinates 
+     * to move a knight (capture or move)
+     * @param {departure x position} x1 
+     * @param {departure y position} y1 
+     * @param {destination x position} x2 
+     * @param {destination y position} y2 
+     */
+    moveKnight(x1,y1,x2,y2)
     {
-        //move horsey
+        if(Number(y1)-Number(2) === Number(y2) && Number(x1)+Number(1) === Number(x2) ||Number(x1)-Number(1) === Number(x2) )
+        {
+            if(this.board[x2][y2].getName() !== "square")
+            {
+                if((this.board[x1][y1].getPiece().getColor()==="black" && this.board[x2][y2].getPiece().getColor()!=="black") ||(this.board[x1][y1].getPiece().getColor()==="white" && this.board[x2][y2].getPiece().getColor()!=="white"))
+            {
+                this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
+                this.board[x1][y1].setPiece(null);
+
+                // Update the span content at the original coordinates
+                document.querySelector(`span[data-row="${x1}"][data-col="${y1}"]`).innerHTML = "";
+
+                // Update the span content at the new coordinates
+                document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+                this.makeMove(x1,y1,x2,y2);
+                return true;
+            }
+            else{
+                alert("Error: you can't capture your own piece dawg lol");
+                return false;
+            }
+            }
+            this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
+            this.board[x1][y1].setPiece(null);
+
+            // Update the span content at the original coordinates
+            document.querySelector(`span[data-row="${x1}"][data-col="${y1}"]`).innerHTML = "";
+
+            // Update the span content at the new coordinates
+            document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+            this.makeMove(x1,y1,x2,y2);
+            return true;
+        }
+        else if(Number(y1)+Number(2) === Number(y2) && Number(x1)+Number(1) === Number(x2) ||Number(x1)-Number(1) === Number(x2))
+        {
+            if(this.board[x2][y2].getName() !== "square")
+            {
+                if((this.board[x1][y1].getPiece().getColor()==="black" && this.board[x2][y2].getPiece().getColor()!=="black") ||(this.board[x1][y1].getPiece().getColor()==="white" && this.board[x2][y2].getPiece().getColor()!=="white"))
+            {
+                this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
+                this.board[x1][y1].setPiece(null);
+
+                // Update the span content at the original coordinates
+                document.querySelector(`span[data-row="${x1}"][data-col="${y1}"]`).innerHTML = "";
+
+                // Update the span content at the new coordinates
+                document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+                this.makeMove(x1,y1,x2,y2);
+                return true;
+            }
+            else{
+                alert("Error: you can't capture your own piece dawg lol");
+                return false;
+            }
+            }
+            this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
+            this.board[x1][y1].setPiece(null);
+
+            // Update the span content at the original coordinates
+            document.querySelector(`span[data-row="${x1}"][data-col="${y1}"]`).innerHTML = "";
+
+            // Update the span content at the new coordinates
+            document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+            this.makeMove(x1,y1,x2,y2);
+            return true;
+        }
+        else if(Number(x1)+Number(2) === Number(x2) && Number(y1)+Number(1) === Number(y2) ||Number(y1)-Number(1) === Number(y2))
+        {
+            if(this.board[x2][y2].getName() !== "square")
+            {
+                if((this.board[x1][y1].getPiece().getColor()==="black" && this.board[x2][y2].getPiece().getColor()!=="black") ||(this.board[x1][y1].getPiece().getColor()==="white" && this.board[x2][y2].getPiece().getColor()!=="white"))
+            {
+                this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
+                this.board[x1][y1].setPiece(null);
+
+                // Update the span content at the original coordinates
+                document.querySelector(`span[data-row="${x1}"][data-col="${y1}"]`).innerHTML = "";
+
+                // Update the span content at the new coordinates
+                document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+                this.makeMove(x1,y1,x2,y2);
+                return true;
+            }
+            else{
+                alert("Error: you can't capture your own piece dawg lol");
+                return false;
+            }
+            }
+            this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
+            this.board[x1][y1].setPiece(null);
+
+            // Update the span content at the original coordinates
+            document.querySelector(`span[data-row="${x1}"][data-col="${y1}"]`).innerHTML = "";
+
+            // Update the span content at the new coordinates
+            document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+            this.makeMove(x1,y1,x2,y2);
+            return true;
+        }
+        else if(Number(x1)-Number(2) === Number(x2) && Number(y1)+Number(1) === Number(y2) ||Number(y1)-Number(1) === Number(y2))
+        {
+            if(this.board[x2][y2].getName() !== "square")
+            {
+                if((this.board[x1][y1].getPiece().getColor()==="black" && this.board[x2][y2].getPiece().getColor()!=="black") ||(this.board[x1][y1].getPiece().getColor()==="white" && this.board[x2][y2].getPiece().getColor()!=="white"))
+            {
+                this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
+                this.board[x1][y1].setPiece(null);
+
+                // Update the span content at the original coordinates
+                document.querySelector(`span[data-row="${x1}"][data-col="${y1}"]`).innerHTML = "";
+
+                // Update the span content at the new coordinates
+                document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+                this.makeMove(x1,y1,x2,y2);
+                return true;
+            }
+            else{
+                alert("Error: you can't capture your own piece dawg lol");
+                return false;
+            }
+            }
+            this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
+            this.board[x1][y1].setPiece(null);
+
+            // Update the span content at the original coordinates
+            document.querySelector(`span[data-row="${x1}"][data-col="${y1}"]`).innerHTML = "";
+
+            // Update the span content at the new coordinates
+            document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+            this.makeMove(x1,y1,x2,y2);
+            return true;
+        }
+        else {
+            alert("Error: Illegal Bishop move");
+            return false;
+        }
     }
 }
 
