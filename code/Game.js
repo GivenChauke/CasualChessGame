@@ -135,6 +135,29 @@ if (boarddisplay[x1][y1].getPiece().getName() === "Pawn") {
                 var pieceSpan = document.createElement("span");
                 pieceSpan.innerHTML = piece; // Replace this with your function to get UTF representation
                 pieceSpan.addEventListener("click", function () {
+                    if(piece ==='\u2655' )//White queen
+                    {
+                        boarddisplay[x2][y2].setPiece(null);
+                        boarddisplay[x2][y2].setPiece(new Queen("Queen",'\u2655'));
+                        boarddisplay[x2][y2].getPiece().setColor("white");
+                    }
+                    else if(piece ==='\u2656')
+                    {
+                        boarddisplay[x2][y2].setPiece(null);
+                        boarddisplay[x2][y2].setPiece(new Rook("Rook",'\u2656'));
+                        boarddisplay[x2][y2].getPiece().setColor("white");
+                    }
+                    else if(piece === '\u2657')
+                    {
+                        boarddisplay[x2][y2].setPiece(null);
+                        boarddisplay[x2][y2].setPiece(new Bishop("Bishop",'\u2657'));
+                        boarddisplay[x2][y2].getPiece().setColor("white");
+                    }
+                    else{
+                        boarddisplay[x2][y2].setPiece(null);
+                        boarddisplay[x2][y2].setPiece(new Knight("Knight",'\u2658'));
+                        boarddisplay[x2][y2].getPiece().setColor("white");
+                    }
                     // Replace the pawn with the chosen piece
                     document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = piece;
                     // Remove the promotion div
@@ -200,10 +223,34 @@ if (boarddisplay[x1][y1].getPiece().getName() === "Pawn") {
                         var pieceSpan = document.createElement("span");
                         pieceSpan.innerHTML = piece; // Replace this with your function to get UTF representation
                         pieceSpan.addEventListener("click", function () {
-                            // Replace the pawn with the chosen piece
-                            document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = piece;
-                            // Remove the promotion div
-                            document.body.removeChild(promotionDiv);
+
+                        if(piece ==='\u265B' )//White queen
+                        {
+                            boarddisplay[x2][y2].setPiece(null);
+                            boarddisplay[x2][y2].setPiece(new Queen("Queen",'\u265B'));
+                            boarddisplay[x2][y2].getPiece().setColor("black");
+                        }
+                        else if(piece ==='\u265C')
+                        {
+                            boarddisplay[x2][y2].setPiece(null);
+                            boarddisplay[x2][y2].setPiece(new Rook("Rook",'\u265C'));
+                            boarddisplay[x2][y2].getPiece().setColor("black");
+                        }
+                        else if(piece === '\u265D')
+                        {
+                            boarddisplay[x2][y2].setPiece(null);
+                            boarddisplay[x2][y2].setPiece(new Bishop("Bishop",'\u265D'));
+                            boarddisplay[x2][y2].getPiece().setColor("black");
+                        }
+                        else{
+                            boarddisplay[x2][y2].setPiece(null);
+                            boarddisplay[x2][y2].setPiece(new Knight("Knight",'\u265E'));
+                            boarddisplay[x2][y2].getPiece().setColor("black");
+                        }
+                        // Replace the pawn with the chosen piece
+                        document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = piece;
+                        // Remove the promotion div
+                        document.body.removeChild(promotionDiv);
                         });
                         promotionDiv.appendChild(pieceSpan);
                     });
