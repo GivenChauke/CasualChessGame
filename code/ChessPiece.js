@@ -736,13 +736,522 @@ class ChessBoard{
      * @param {destination x position} x2 
      * @param {destination y position} y2 
      */
-    moveQueen()
+    moveQueen(x1,y1,x2,y2)
     {
         //move queen on the board
+        //if destination has no piece (just a move)
+        if(this.board[x2][y2].getName() === "square")
+        {
+            var x = x1;
+            var y = y1;
+            var x3 = x2;
+            var y3 = y2;
+            if(this.br(x1,y1,x2,y2,false)){
+                this.board[x3][y3].setPiece(this.board[x][y].getPiece());
+                this.board[x][y].setPiece(null);
+
+                // Update the span content at the original coordinates
+                document.querySelector(`span[data-row="${x}"][data-col="${y}"]`).innerHTML = "";
+
+                // Update the span content at the new coordinates
+                document.querySelector(`span[data-row="${x3}"][data-col="${y3}"]`).innerHTML = this.board[x3][y3].getPiece().Utf();
+                this.makeMove(x,y,x3,y3);
+                return true;
+            }
+            else if(this.bl(x1,y1,x2,y2,false))
+            {
+                this.board[x3][y3].setPiece(this.board[x][y].getPiece());
+                this.board[x][y].setPiece(null);
+
+                // Update the span content at the original coordinates
+                document.querySelector(`span[data-row="${x}"][data-col="${y}"]`).innerHTML = "";
+
+                // Update the span content at the new coordinates
+                document.querySelector(`span[data-row="${x3}"][data-col="${y3}"]`).innerHTML = this.board[x3][y3].getPiece().Utf();
+                this.makeMove(x,y,x3,y3);
+                return true;
+            }
+            else if(this.tr(x1,y1,x2,y2,false))
+            {
+                this.board[x3][y3].setPiece(this.board[x][y].getPiece());
+                this.board[x][y].setPiece(null);
+
+                // Update the span content at the original coordinates
+                document.querySelector(`span[data-row="${x}"][data-col="${y}"]`).innerHTML = "";
+
+                // Update the span content at the new coordinates
+                document.querySelector(`span[data-row="${x3}"][data-col="${y3}"]`).innerHTML = this.board[x3][y3].getPiece().Utf();
+                this.makeMove(x,y,x3,y3);
+                return true;
+            }
+            else if(this.tl(x1,y1,x2,y2,false))
+            {
+                this.board[x3][y3].setPiece(this.board[x][y].getPiece());
+                this.board[x][y].setPiece(null);
+
+                // Update the span content at the original coordinates
+                document.querySelector(`span[data-row="${x}"][data-col="${y}"]`).innerHTML = "";
+
+                // Update the span content at the new coordinates
+                document.querySelector(`span[data-row="${x3}"][data-col="${y3}"]`).innerHTML = this.board[x3][y3].getPiece().Utf();
+                this.makeMove(x,y,x3,y3);
+                return true;
+            }
+            else if(this.rookLeft(x1,y1,x2,y2,false)){
+                this.board[x3][y3].setPiece(this.board[x][y].getPiece());
+                this.board[x][y].setPiece(null);
+
+                // Update the span content at the original coordinates
+                document.querySelector(`span[data-row="${x}"][data-col="${y}"]`).innerHTML = "";
+
+                // Update the span content at the new coordinates
+                document.querySelector(`span[data-row="${x3}"][data-col="${y3}"]`).innerHTML = this.board[x3][y3].getPiece().Utf();
+                this.makeMove(x,y,x3,y3);
+                return true;
+            }
+            else if(this.rookRight(x1,y1,x2,y2,false))
+            {
+                this.board[x3][y3].setPiece(this.board[x][y].getPiece());
+                this.board[x][y].setPiece(null);
+
+                // Update the span content at the original coordinates
+                document.querySelector(`span[data-row="${x}"][data-col="${y}"]`).innerHTML = "";
+
+                // Update the span content at the new coordinates
+                document.querySelector(`span[data-row="${x3}"][data-col="${y3}"]`).innerHTML = this.board[x3][y3].getPiece().Utf();
+                this.makeMove(x,y,x3,y3);
+                return true;
+            }
+            else if(this.rookUp(x1,y1,x2,y2,false))
+            {
+                this.board[x3][y3].setPiece(this.board[x][y].getPiece());
+                this.board[x][y].setPiece(null);
+
+                // Update the span content at the original coordinates
+                document.querySelector(`span[data-row="${x}"][data-col="${y}"]`).innerHTML = "";
+
+                // Update the span content at the new coordinates
+                document.querySelector(`span[data-row="${x3}"][data-col="${y3}"]`).innerHTML = this.board[x3][y3].getPiece().Utf();
+                this.makeMove(x,y,x3,y3);
+                return true;
+            }
+            else if(this.rookDown(x1,y1,x2,y2,false))
+            {
+                this.board[x3][y3].setPiece(this.board[x][y].getPiece());
+                this.board[x][y].setPiece(null);
+
+                // Update the span content at the original coordinates
+                document.querySelector(`span[data-row="${x}"][data-col="${y}"]`).innerHTML = "";
+
+                // Update the span content at the new coordinates
+                document.querySelector(`span[data-row="${x3}"][data-col="${y3}"]`).innerHTML = this.board[x3][y3].getPiece().Utf();
+                this.makeMove(x,y,x3,y3);
+                return true;
+            }
+            else{
+                alert("Error: illegal Queen move");
+                return false;
+            }
+        }
+        else{
+            if((this.board[x1][y1].getPiece().getColor()==="black" && this.board[x2][y2].getPiece().getColor()!=="black") ||(this.board[x1][y1].getPiece().getColor()==="white" && this.board[x2][y2].getPiece().getColor()!=="white"))//black bishop captures
+            {
+                    var x = x1;
+                    var y = y1;
+                    var x3 = x2;
+                    var y3 = y2;
+                    if(this.br(x1,y1,x2,y2,true)){
+                        this.board[x3][y3].setPiece(this.board[x][y].getPiece());
+                        this.board[x][y].setPiece(null);
+        
+                        // Update the span content at the original coordinates
+                        document.querySelector(`span[data-row="${x}"][data-col="${y}"]`).innerHTML = "";
+        
+                        // Update the span content at the new coordinates
+                        document.querySelector(`span[data-row="${x3}"][data-col="${y3}"]`).innerHTML = this.board[x3][y3].getPiece().Utf();
+                        this.makeMove(x,y,x3,y3);
+                        return true;
+                    }
+                    else if(this.bl(x1,y1,x2,y2,true))
+                    {
+                        this.board[x3][y3].setPiece(this.board[x][y].getPiece());
+                        this.board[x][y].setPiece(null);
+        
+                        // Update the span content at the original coordinates
+                        document.querySelector(`span[data-row="${x}"][data-col="${y}"]`).innerHTML = "";
+        
+                        // Update the span content at the new coordinates
+                        document.querySelector(`span[data-row="${x3}"][data-col="${y3}"]`).innerHTML = this.board[x3][y3].getPiece().Utf();
+                        this.makeMove(x,y,x3,y3);
+                        return true;
+                    }
+                    else if(this.tr(x1,y1,x2,y2,true))
+                    {
+                        this.board[x3][y3].setPiece(this.board[x][y].getPiece());
+                        this.board[x][y].setPiece(null);
+        
+                        // Update the span content at the original coordinates
+                        document.querySelector(`span[data-row="${x}"][data-col="${y}"]`).innerHTML = "";
+        
+                        // Update the span content at the new coordinates
+                        document.querySelector(`span[data-row="${x3}"][data-col="${y3}"]`).innerHTML = this.board[x3][y3].getPiece().Utf();
+                        this.makeMove(x,y,x3,y3);
+                        return true;
+                    }
+                    else if(this.tl(x1,y1,x2,y2,true))
+                    {
+                        this.board[x3][y3].setPiece(this.board[x][y].getPiece());
+                        this.board[x][y].setPiece(null);
+        
+                        // Update the span content at the original coordinates
+                        document.querySelector(`span[data-row="${x}"][data-col="${y}"]`).innerHTML = "";
+        
+                        // Update the span content at the new coordinates
+                        document.querySelector(`span[data-row="${x3}"][data-col="${y3}"]`).innerHTML = this.board[x3][y3].getPiece().Utf();
+                        this.makeMove(x,y,x3,y3);
+                        return true;
+                    }
+                    else if(this.rookLeft(x1,y1,x2,y2,true)){
+                        this.board[x3][y3].setPiece(this.board[x][y].getPiece());
+                        this.board[x][y].setPiece(null);
+        
+                        // Update the span content at the original coordinates
+                        document.querySelector(`span[data-row="${x}"][data-col="${y}"]`).innerHTML = "";
+        
+                        // Update the span content at the new coordinates
+                        document.querySelector(`span[data-row="${x3}"][data-col="${y3}"]`).innerHTML = this.board[x3][y3].getPiece().Utf();
+                        this.makeMove(x,y,x3,y3);
+                        return true;
+                    }
+                    else if(this.rookRight(x1,y1,x2,y2,true))
+                    {
+                        this.board[x3][y3].setPiece(this.board[x][y].getPiece());
+                        this.board[x][y].setPiece(null);
+        
+                        // Update the span content at the original coordinates
+                        document.querySelector(`span[data-row="${x}"][data-col="${y}"]`).innerHTML = "";
+        
+                        // Update the span content at the new coordinates
+                        document.querySelector(`span[data-row="${x3}"][data-col="${y3}"]`).innerHTML = this.board[x3][y3].getPiece().Utf();
+                        this.makeMove(x,y,x3,y3);
+                        return true;
+                    }
+                    else if(this.rookUp(x1,y1,x2,y2,true))
+                    {
+                        this.board[x3][y3].setPiece(this.board[x][y].getPiece());
+                        this.board[x][y].setPiece(null);
+        
+                        // Update the span content at the original coordinates
+                        document.querySelector(`span[data-row="${x}"][data-col="${y}"]`).innerHTML = "";
+        
+                        // Update the span content at the new coordinates
+                        document.querySelector(`span[data-row="${x3}"][data-col="${y3}"]`).innerHTML = this.board[x3][y3].getPiece().Utf();
+                        this.makeMove(x,y,x3,y3);
+                        return true;
+                    }
+                    else if(this.rookDown(x1,y1,x2,y2,true))
+                    {
+                        this.board[x3][y3].setPiece(this.board[x][y].getPiece());
+                        this.board[x][y].setPiece(null);
+        
+                        // Update the span content at the original coordinates
+                        document.querySelector(`span[data-row="${x}"][data-col="${y}"]`).innerHTML = "";
+        
+                        // Update the span content at the new coordinates
+                        document.querySelector(`span[data-row="${x3}"][data-col="${y3}"]`).innerHTML = this.board[x3][y3].getPiece().Utf();
+                        this.makeMove(x,y,x3,y3);
+                        return true;
+                    }
+                    else{
+                        alert("Error: illegal Queen capture");
+                        return false;
+                    }
+            }
+            else{
+                alert("Error: you can't capture your own piece dawg lol");
+                return false;
+            }
+        }
     }
-    moveKing()
+    /**
+     * takes in coordinates 
+     * to move a King (capture or move)
+     * @param {departure x position} x1 
+     * @param {departure y position} y1 
+     * @param {destination x position} x2 
+     * @param {destination y position} y2 
+     */
+    moveKing(x1,y1,x2,y2)
     {
         //move king on the board
+        if(Number(x1)+Number(1)===Number(x2)&&Number(y1)===Number(y2))
+        {
+            if(this.board[x2][y2].getName() !== "square")
+            {
+                if((this.board[x1][y1].getPiece().getColor()==="black" && this.board[x2][y2].getPiece().getColor()!=="black") ||(this.board[x1][y1].getPiece().getColor()==="white" && this.board[x2][y2].getPiece().getColor()!=="white"))
+            {
+                this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
+                this.board[x1][y1].setPiece(null);
+
+                // Update the span content at the original coordinates
+                document.querySelector(`span[data-row="${x1}"][data-col="${y1}"]`).innerHTML = "";
+
+                // Update the span content at the new coordinates
+                document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+                this.makeMove(x1,y1,x2,y2);
+                return true;
+            }
+            else{
+                alert("Error: you can't capture your own piece dawg lol");
+                return false;
+            }
+            }
+            this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
+            this.board[x1][y1].setPiece(null);
+
+            // Update the span content at the original coordinates
+            document.querySelector(`span[data-row="${x1}"][data-col="${y1}"]`).innerHTML = "";
+
+            // Update the span content at the new coordinates
+            document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+            this.makeMove(x1,y1,x2,y2);
+            return true;
+        }
+        else if(Number(x1)-Number(1)===Number(x2)&&Number(y1)===Number(y2))
+        {
+            if(this.board[x2][y2].getName() !== "square")
+            {
+                if((this.board[x1][y1].getPiece().getColor()==="black" && this.board[x2][y2].getPiece().getColor()!=="black") ||(this.board[x1][y1].getPiece().getColor()==="white" && this.board[x2][y2].getPiece().getColor()!=="white"))
+            {
+                this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
+                this.board[x1][y1].setPiece(null);
+
+                // Update the span content at the original coordinates
+                document.querySelector(`span[data-row="${x1}"][data-col="${y1}"]`).innerHTML = "";
+
+                // Update the span content at the new coordinates
+                document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+                this.makeMove(x1,y1,x2,y2);
+                return true;
+            }
+            else{
+                alert("Error: you can't capture your own piece dawg lol");
+                return false;
+            }
+            }
+            this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
+            this.board[x1][y1].setPiece(null);
+
+            // Update the span content at the original coordinates
+            document.querySelector(`span[data-row="${x1}"][data-col="${y1}"]`).innerHTML = "";
+
+            // Update the span content at the new coordinates
+            document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+            this.makeMove(x1,y1,x2,y2);
+            return true;
+        }
+        else if(Number(y1)-Number(1)=== Number(y2) && Number(x1)===Number(x2))
+        {
+            if(this.board[x2][y2].getName() !== "square")
+            {
+                if((this.board[x1][y1].getPiece().getColor()==="black" && this.board[x2][y2].getPiece().getColor()!=="black") ||(this.board[x1][y1].getPiece().getColor()==="white" && this.board[x2][y2].getPiece().getColor()!=="white"))
+            {
+                this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
+                this.board[x1][y1].setPiece(null);
+
+                // Update the span content at the original coordinates
+                document.querySelector(`span[data-row="${x1}"][data-col="${y1}"]`).innerHTML = "";
+
+                // Update the span content at the new coordinates
+                document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+                this.makeMove(x1,y1,x2,y2);
+                return true;
+            }
+            else{
+                alert("Error: you can't capture your own piece dawg lol");
+                return false;
+            }
+            }
+            this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
+            this.board[x1][y1].setPiece(null);
+
+            // Update the span content at the original coordinates
+            document.querySelector(`span[data-row="${x1}"][data-col="${y1}"]`).innerHTML = "";
+
+            // Update the span content at the new coordinates
+            document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+            this.makeMove(x1,y1,x2,y2);
+            return true;
+        }
+        else if(Number(y1)+Number(1)=== Number(y2) && Number(x1)===Number(x2))
+        {
+            if(this.board[x2][y2].getName() !== "square")
+            {
+                if((this.board[x1][y1].getPiece().getColor()==="black" && this.board[x2][y2].getPiece().getColor()!=="black") ||(this.board[x1][y1].getPiece().getColor()==="white" && this.board[x2][y2].getPiece().getColor()!=="white"))
+            {
+                this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
+                this.board[x1][y1].setPiece(null);
+
+                // Update the span content at the original coordinates
+                document.querySelector(`span[data-row="${x1}"][data-col="${y1}"]`).innerHTML = "";
+
+                // Update the span content at the new coordinates
+                document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+                this.makeMove(x1,y1,x2,y2);
+                return true;
+            }
+            else{
+                alert("Error: you can't capture your own piece dawg lol");
+                return false;
+            }
+            }
+            this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
+            this.board[x1][y1].setPiece(null);
+
+            // Update the span content at the original coordinates
+            document.querySelector(`span[data-row="${x1}"][data-col="${y1}"]`).innerHTML = "";
+
+            // Update the span content at the new coordinates
+            document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+            this.makeMove(x1,y1,x2,y2);
+            return true;
+        }
+        else if(Number(x1)-Number(1)===Number(x2)&& Number(y1)-Number(1)=== Number(y2))
+        {
+            if(this.board[x2][y2].getName() !== "square")
+            {
+                if((this.board[x1][y1].getPiece().getColor()==="black" && this.board[x2][y2].getPiece().getColor()!=="black") ||(this.board[x1][y1].getPiece().getColor()==="white" && this.board[x2][y2].getPiece().getColor()!=="white"))
+            {
+                this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
+                this.board[x1][y1].setPiece(null);
+
+                // Update the span content at the original coordinates
+                document.querySelector(`span[data-row="${x1}"][data-col="${y1}"]`).innerHTML = "";
+
+                // Update the span content at the new coordinates
+                document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+                this.makeMove(x1,y1,x2,y2);
+                return true;
+            }
+            else{
+                alert("Error: you can't capture your own piece dawg lol");
+                return false;
+            }
+            }
+            this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
+            this.board[x1][y1].setPiece(null);
+
+            // Update the span content at the original coordinates
+            document.querySelector(`span[data-row="${x1}"][data-col="${y1}"]`).innerHTML = "";
+
+            // Update the span content at the new coordinates
+            document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+            this.makeMove(x1,y1,x2,y2);
+            return true;
+        }
+        else if(Number(x1)+Number(1)===Number(x2)&& Number(y1)+Number(1)=== Number(y2))
+        {
+            if(this.board[x2][y2].getName() !== "square")
+            {
+                if((this.board[x1][y1].getPiece().getColor()==="black" && this.board[x2][y2].getPiece().getColor()!=="black") ||(this.board[x1][y1].getPiece().getColor()==="white" && this.board[x2][y2].getPiece().getColor()!=="white"))
+            {
+                this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
+                this.board[x1][y1].setPiece(null);
+
+                // Update the span content at the original coordinates
+                document.querySelector(`span[data-row="${x1}"][data-col="${y1}"]`).innerHTML = "";
+
+                // Update the span content at the new coordinates
+                document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+                this.makeMove(x1,y1,x2,y2);
+                return true;
+            }
+            else{
+                alert("Error: you can't capture your own piece dawg lol");
+                return false;
+            }
+            }
+            this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
+            this.board[x1][y1].setPiece(null);
+
+            // Update the span content at the original coordinates
+            document.querySelector(`span[data-row="${x1}"][data-col="${y1}"]`).innerHTML = "";
+
+            // Update the span content at the new coordinates
+            document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+            this.makeMove(x1,y1,x2,y2);
+            return true;
+        }
+        else if(Number(x1)+Number(1)===Number(x2)&& Number(y1)-Number(1)=== Number(y2))
+        {
+            if(this.board[x2][y2].getName() !== "square")
+            {
+                if((this.board[x1][y1].getPiece().getColor()==="black" && this.board[x2][y2].getPiece().getColor()!=="black") ||(this.board[x1][y1].getPiece().getColor()==="white" && this.board[x2][y2].getPiece().getColor()!=="white"))
+            {
+                this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
+                this.board[x1][y1].setPiece(null);
+
+                // Update the span content at the original coordinates
+                document.querySelector(`span[data-row="${x1}"][data-col="${y1}"]`).innerHTML = "";
+
+                // Update the span content at the new coordinates
+                document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+                this.makeMove(x1,y1,x2,y2);
+                return true;
+            }
+            else{
+                alert("Error: you can't capture your own piece dawg lol");
+                return false;
+            }
+            }
+            this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
+            this.board[x1][y1].setPiece(null);
+
+            // Update the span content at the original coordinates
+            document.querySelector(`span[data-row="${x1}"][data-col="${y1}"]`).innerHTML = "";
+
+            // Update the span content at the new coordinates
+            document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+            this.makeMove(x1,y1,x2,y2);
+            return true;
+        }
+        else if(Number(x1)-Number(1)===Number(x2)&& Number(y1)+Number(1)=== Number(y2))
+        {
+            if(this.board[x2][y2].getName() !== "square")
+            {
+                if((this.board[x1][y1].getPiece().getColor()==="black" && this.board[x2][y2].getPiece().getColor()!=="black") ||(this.board[x1][y1].getPiece().getColor()==="white" && this.board[x2][y2].getPiece().getColor()!=="white"))
+            {
+                this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
+                this.board[x1][y1].setPiece(null);
+
+                // Update the span content at the original coordinates
+                document.querySelector(`span[data-row="${x1}"][data-col="${y1}"]`).innerHTML = "";
+
+                // Update the span content at the new coordinates
+                document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+                this.makeMove(x1,y1,x2,y2);
+                return true;
+            }
+            else{
+                alert("Error: you can't capture your own piece dawg lol");
+                return false;
+            }
+            }
+            this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
+            this.board[x1][y1].setPiece(null);
+
+            // Update the span content at the original coordinates
+            document.querySelector(`span[data-row="${x1}"][data-col="${y1}"]`).innerHTML = "";
+
+            // Update the span content at the new coordinates
+            document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+            this.makeMove(x1,y1,x2,y2);
+            return true;
+        }
+        else {
+            alert("Error: illegal King move");
+            return false;
+        }
     }
     /**
      * takes in coordinates 
