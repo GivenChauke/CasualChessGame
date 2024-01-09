@@ -22,15 +22,18 @@ Casual Chess Software is a simple web application that allows users to play casu
 - [x] [Optional] Add chess piece images.
 - [x] [Optional] Handle user input for moving pieces.
 - [x] Implement Pawn movement
+- [x] Implement Pawn Promotion(Dynamic promotion options when a pawn reaches the opposite end of the board)
 - [X] Implement Bishop movement
 - [x] Implement Rook movement
 - [x] Implement Knight movement
-- [ ] Implement King movement
-- [ ] Implement Queen movement
+- [x] Implement King movement
+- [x] Implement Queen movement
+- [] Implement Check algorithm (Detect when a King is threatened).
+- [] Implement Checkmate algorithm (Identify situations where a King is threatened and has no escape).
 ### 3. Testing
-- [ ] Develop and execute unit tests for critical functions.
-- [ ] Perform user testing to identify and fix issues.
-- [ ] Conduct thorough testing to ensure a stable application.
+- [x] Develop and execute unit tests for critical functions.
+- [x] Perform user testing to identify and fix issues.
+- [x] Conduct thorough testing to ensure a stable application.
 
 ### 4. Project Deadline (1 Jan)
 - [ ] Ensure all features are implemented.
