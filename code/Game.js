@@ -197,7 +197,11 @@ if (boarddisplay[x1][y1].getPiece().getName() === "Pawn") {
     } 
     else if(boarddisplay[x1][y1].getPiece().getName() === "King")
     {
-        if (board.moveKing(x1, y1, x2, y2)) {
+        if(Number(x2)===Number(7)&& Number(y2)===Number(2) || Number(x2)===Number(7)&& Number(y2)===Number(6) &&( Number(y1)-Number(y2)==Number(2) ||Number(y1)-Number(y2)==Number(-2) ))
+        if(board.canCastle("black",x1, y1, x2, y2))
+        turn = 1;
+        
+        else if (board.moveKing(x1, y1, x2, y2)) {
             turn = 0;
         }
     }    
@@ -286,7 +290,10 @@ if (boarddisplay[x1][y1].getPiece().getName() === "Pawn") {
     }  
     else if(boarddisplay[x1][y1].getPiece().getName() === "King")
     {
-        if (board.moveKing(x1, y1, x2, y2)) {
+        if(Number(x2)===Number(0)&& Number(y2)===Number(2) || Number(x2)===Number(0)&& Number(y2)===Number(4) &&( Number(y1)-Number(y2)==Number(2) ||Number(y1)-Number(y2)==Number(-2) ))
+        if(board.canCastle("black",x1, y1, x2, y2))
+        turn = 1;
+        else if (board.moveKing(x1, y1, x2, y2)) {
             turn = 1;
         }
     }

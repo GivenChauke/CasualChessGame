@@ -123,7 +123,8 @@ class ChessBoard{
             to: { row: 0, col: 0 },    // Square to which the piece moved
             piece: null  // The piece that moved
         };
-        
+        // Flag to track if castling has occurred
+        this.castled = { white: false, black: false };
     }
     /**
      * make a successful move on the JSON object for bookeeeping 
@@ -463,8 +464,17 @@ class ChessBoard{
      */
     moveRook(x1,y1,x2,y2)
     {
-//move bishop on the board
+        //move bishop on the board
         //if destination has no piece (just a move)
+        if(this.board[x1][y1].getPiece().getColor()==="black")
+        {
+            let color = "black";
+            this.castled[color] = true;
+        }
+        else{
+            let color = "white";
+            this.castled[color] = true;
+        }
         if(this.board[x2][y2].getName() === "square")
         {
             var x = x1;
@@ -983,6 +993,15 @@ class ChessBoard{
      */
     moveKing(x1,y1,x2,y2)
     {
+        if(this.board[x1][y1].getPiece().getColor()==="black")
+        {
+            let color = "black";
+            this.castled[color] = true;
+        }
+        else{
+            let color = "white";
+            this.castled[color] = true;
+        }
         //move king on the board
         if(Number(x1)+Number(1)===Number(x2)&&Number(y1)===Number(y2))
         {
@@ -1672,7 +1691,268 @@ class ChessBoard{
             return true;
         }
         else {
-            alert("Error: Illegal Bishop move");
+            alert("Error: Illegal Knight move");
+            return false;
+        }
+    }
+    /**
+     * helper function that checks a valid pawn capture 
+     * @param {departure x position} x1 
+     * @param {departure y position} y1 
+     * @param {destination x position} x2 
+     * @param {destination y position} y2 
+     */
+    pawnHelper(x1,y1,x2,y2)
+    {
+            if(this.board[x1][y1].getPiece().getColor()==="black")//black pawn captures
+            {
+                if(this.board[x2][y2].getPiece().getColor()!=="black"){
+                if(((x2-1) == x1) && ((y1-1) == y2 || (y2-1) == y1))
+                {
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+                else{
+                    return false;
+                }
+            }
+            else{//white pawn captures
+                if(this.board[x2][y2].getPiece().getColor()!=="white"){
+                    if(((x1-1) == x2) && ((y2-1) == y1 || (y1-1) == y2))
+                    {
+                        return true;
+                    }
+                    else{
+                        return false;
+                    }
+                }
+                else{
+                    return false;
+                }
+            }
+    }
+    /**
+     * helper function that checks a valid knight capture 
+     * @param {departure x position} x1 
+     * @param {departure y position} y1 
+     * @param {destination x position} x2 
+     * @param {destination y position} y2 
+     */
+    knightHelper(x1,y1,x2,y2)
+    {
+        if(Number(y1)-Number(2) === Number(y2) && Number(x1)+Number(1) === Number(x2) ||Number(x1)-Number(1) === Number(x2) )
+        {
+            return true;
+        }
+        else if(Number(y1)+Number(2) === Number(y2) && Number(x1)+Number(1) === Number(x2) ||Number(x1)-Number(1) === Number(x2))
+        {
+            return true;
+        }
+        else if(Number(x1)+Number(2) === Number(x2) && Number(y1)+Number(1) === Number(y2) ||Number(y1)-Number(1) === Number(y2))
+        {
+            return true;
+        }
+        else if(Number(x1)-Number(2) === Number(x2) && Number(y1)+Number(1) === Number(y2) ||Number(y1)-Number(1) === Number(y2))
+        {
+            return true;
+        }
+        else {
+
+            return false;
+        }
+    }
+    /**
+     * helper function that checks a valid Queen capture 
+     * @param {departure x position} x1 
+     * @param {departure y position} y1 
+     * @param {destination x position} x2 
+     * @param {destination y position} y2 
+     */
+    queenHelper(x1,y1,x2,y2)
+    {
+        if((this.board[x1][y1].getPiece().getColor()==="black" && this.board[x2][y2].getPiece().getColor()!=="black") ||(this.board[x1][y1].getPiece().getColor()==="white" && this.board[x2][y2].getPiece().getColor()!=="white"))//black bishop captures
+        {
+                if(this.br(x1,y1,x2,y2,true)){
+                    return true;
+                }
+                else if(this.bl(x1,y1,x2,y2,true))
+                {
+                    return true;
+                }
+                else if(this.tr(x1,y1,x2,y2,true))
+                {
+                    return true;
+                }
+                else if(this.tl(x1,y1,x2,y2,true))
+                {
+                    return true;
+                }
+                else if(this.rookLeft(x1,y1,x2,y2,true)){
+                    return true;
+                }
+                else if(this.rookRight(x1,y1,x2,y2,true))
+                {
+                    return true;
+                }
+                else if(this.rookUp(x1,y1,x2,y2,true))
+                {
+                    return true;
+                }
+                else if(this.rookDown(x1,y1,x2,y2,true))
+                {
+                    return true;
+                }
+                else{
+                    return false;
+                }
+        }
+        else{
+            return false;
+        }
+    }
+    /**
+     * helper function that checks if a user can castle
+     * @param {colour} color 
+     * @param {departure x position} x1 
+     * @param {departure y position} y1 
+     * @param {destination x position} x2 
+     * @param {destination y position} y2 
+     */
+    canCastle(color,x1,y1,x2,y2) {
+        // Add this method in the Board class to check if castling is allowed
+        // Implement logic to check if castling is allowed for the given color and side
+        // For example, check if the rook and king have not moved, and there are no pieces in between them
+        // Return true if allowed, false otherwise
+        // this.castled = { white: false, black: false };
+        if(this.castled[color] ) {
+            alert("Error: Castling not possible");
+            return false;
+        }
+        if(this.board[x2][y2].getName()==="square")
+        {
+            if(Number(y1)>Number(y2))//long castling
+            {
+                for(let x = y1;x >0;x--)
+                {
+                    if( Number(x)=== Number(y1))
+                    continue;
+                    else if(this.board[x2][x].getName()==="square")
+                    continue;
+                    else if(this.board[x2][x].getName()==="Rook" && Number(x)===Number(0))
+                    continue
+                    else{
+                        alert("Error: Castling not possible");
+                        return false;
+                    }
+                }
+                if(this.board[x1][y1].getPiece().getColor()==="black" )
+                {
+                    this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
+                    this.board[x1][y1].setPiece(null);
+    
+                    // Update the span content at the original coordinates
+                    document.querySelector(`span[data-row="${x1}"][data-col="${y1}"]`).innerHTML = "";
+    
+                    // Update the span content at the new coordinates
+                    document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+
+                    //(0, 0) Destination Square: (0, 3)
+                    this.board[0][3].setPiece(this.board[0][0].getPiece());
+                    this.board[0][0].setPiece(null);
+                    // Update the span content at the original coordinates
+                    document.querySelector(`span[data-row="${0}"][data-col="${0}"]`).innerHTML = "";
+    
+                    // Update the span content at the new coordinates
+                    document.querySelector(`span[data-row="${0}"][data-col="${3}"]`).innerHTML = this.board[0][3].getPiece().Utf();
+                    this.makeMove(x1,y1,x2,y2);
+                    return true;
+                }
+                else{
+                    this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
+                    this.board[x1][y1].setPiece(null);
+    
+                    // Update the span content at the original coordinates
+                    document.querySelector(`span[data-row="${x1}"][data-col="${y1}"]`).innerHTML = "";
+    
+                    // Update the span content at the new coordinates
+                    document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+
+                    //(7, 0) Destination Square: (7, 3)
+                    this.board[7][3].setPiece(this.board[7][0].getPiece());
+                    this.board[7][0].setPiece(null);
+                    // Update the span content at the original coordinates
+                    document.querySelector(`span[data-row="${7}"][data-col="${0}"]`).innerHTML = "";
+    
+                    // Update the span content at the new coordinates
+                    document.querySelector(`span[data-row="${7}"][data-col="${3}"]`).innerHTML = this.board[7][3].getPiece().Utf();
+                    this.makeMove(x1,y1,x2,y2);
+                    return true;
+                }
+            }
+            else{
+                for(let x = y1 ;x <8;x++)
+                {
+                    if( Number(x)=== Number(y1))
+                    continue;
+                    else if(this.board[x2][x].getName()==="square")
+                    continue;
+                    else if(this.board[x2][x].getName()==="Rook" && Number(x)===Number(7))
+                    continue
+                    else{
+                        alert("Error: Castling not possible");
+                        return false;
+                    }
+                }
+                if(this.board[x1][y1].getPiece().getColor()==="black" )
+                {
+                    this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
+                    this.board[x1][y1].setPiece(null);
+    
+                    // Update the span content at the original coordinates
+                    document.querySelector(`span[data-row="${x1}"][data-col="${y1}"]`).innerHTML = "";
+    
+                    // Update the span content at the new coordinates
+                    document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+
+                    //(0, 7) Destination Square: (0, 5)
+                    this.board[0][5].setPiece(this.board[0][7].getPiece());
+                    this.board[0][7].setPiece(null);
+                    // Update the span content at the original coordinates
+                    document.querySelector(`span[data-row="${0}"][data-col="${7}"]`).innerHTML = "";
+    
+                    // Update the span content at the new coordinates
+                    document.querySelector(`span[data-row="${0}"][data-col="${5}"]`).innerHTML = this.board[0][5].getPiece().Utf();
+                    this.makeMove(x1,y1,x2,y2);
+                    return true;
+                }
+                else{
+                    this.board[x2][y2].setPiece(this.board[x1][y1].getPiece());
+                    this.board[x1][y1].setPiece(null);
+    
+                    // Update the span content at the original coordinates
+                    document.querySelector(`span[data-row="${x1}"][data-col="${y1}"]`).innerHTML = "";
+    
+                    // Update the span content at the new coordinates
+                    document.querySelector(`span[data-row="${x2}"][data-col="${y2}"]`).innerHTML = this.board[x2][y2].getPiece().Utf();
+
+                    //(7, 7) Destination Square: (7, 5)
+                    this.board[7][5].setPiece(this.board[7][7].getPiece());
+                    this.board[7][7].setPiece(null);
+                    // Update the span content at the original coordinates
+                    document.querySelector(`span[data-row="${7}"][data-col="${7}"]`).innerHTML = "";
+    
+                    // Update the span content at the new coordinates
+                    document.querySelector(`span[data-row="${7}"][data-col="${5}"]`).innerHTML = this.board[7][5].getPiece().Utf();
+                    this.makeMove(x1,y1,x2,y2);
+                    return true;
+                }
+            }
+        }
+        else{
+            alert("Error: Castling not possible");
             return false;
         }
     }
