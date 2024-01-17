@@ -30,7 +30,7 @@ Casual Chess Software is a simple web application that allows users to play casu
 - [x] Implement Queen movement
 - [ ] Implement Check algorithm (Detect when a King is threatened).
 - [ ] Implement Checkmate algorithm (Identify situations where a King is threatened and has no escape).
-- [ ] Implement Castling algorithm (Special King and rook movement).
+- [x] Implement Castling algorithm (Special King and rook movement).
 ### 3. Testing
 - [x] Develop and execute unit tests for critical functions.
 - [x] Perform user testing to identify and fix issues.
