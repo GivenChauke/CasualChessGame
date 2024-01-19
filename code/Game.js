@@ -110,15 +110,15 @@ div.addEventListener("click", function (event) {
     }
 });
 
-function legalMove(x1, y1, x2, y2) {
+function legalMove(x1, y1, x2, y2){
     // Check the turn and pass to board piece move
     console.log("Departure square: (" + x1 + ", " + y1 + ") Destination Square: "+"(" + x2 + ", " + y2 + ")");
     //console.log("Departure square color:"+colorSquaredep+" Destination square color: "+colorSquaredes);
-    if (turn === 1 && boarddisplay[x1][y1].getPiece().getColor()!=="white") {
+    if (turn === 1 && boarddisplay[x1][y1].getPiece().getColor()!=="white"){
         alert("ERROR: It's white's turn to play");
     }else if(turn === 1 && boarddisplay[x1][y1].getPiece().getColor()==="white"){
 // Inside the block where you check for pawn promotion
-if (boarddisplay[x1][y1].getPiece().getName() === "Pawn") {
+if (boarddisplay[x1][y1].getPiece().getName() === "Pawn"){
     if (board.movePawn(x1, y1, x2, y2)) {
         turn = 0;
         if (Number(x2) === Number(0)) { // White pawn promoted
@@ -131,7 +131,7 @@ if (boarddisplay[x1][y1].getPiece().getName() === "Pawn") {
             var pieceOptions = ['\u2655', '\u2656', '\u2657', '\u2658'];
 
             // Populate the div with clickable spans
-            pieceOptions.forEach(piece => {
+            pieceOptions.forEach(piece =>{
                 var pieceSpan = document.createElement("span");
                 pieceSpan.innerHTML = piece; // Replace this with your function to get UTF representation
                 pieceSpan.addEventListener("click", function () {
@@ -169,30 +169,66 @@ if (boarddisplay[x1][y1].getPiece().getName() === "Pawn") {
             // Append the promotion div to the body
             document.body.appendChild(promotionDiv);
         }
+        let x = board.getBlackKingx();
+        let y = board.getBlackKingy();
+        if (board.inCheck("black", x, y)) {
+            // Get the square element and add the 'in-check' class
+            const squareElement = document.querySelector(`span[data-row="${x}"][data-col="${y}"]`);
+            squareElement.classList.add('in-check');
+        }
+
     }
 }
     else if(boarddisplay[x1][y1].getPiece().getName() === "Bishop")
     {
-        if (board.moveBishop(x1, y1, x2, y2)) {
+        if (board.moveBishop(x1, y1, x2, y2)){
             turn = 0;
+            let x = board.getBlackKingx();
+            let y = board.getBlackKingy();
+            if (board.inCheck("black", x, y)) {
+                // Get the square element and add the 'in-check' class
+                const squareElement = document.querySelector(`span[data-row="${x}"][data-col="${y}"]`);
+                squareElement.classList.add('in-check');
+            }
         }
     }
     else if(boarddisplay[x1][y1].getPiece().getName() === "Knight")
     {
-        if (board.moveKnight(x1, y1, x2, y2)) {
+        if (board.moveKnight(x1, y1, x2, y2)){
             turn = 0;
+            let x = board.getBlackKingx();
+            let y = board.getBlackKingy();
+            if (board.inCheck("black", x, y)) {
+                // Get the square element and add the 'in-check' class
+                const squareElement = document.querySelector(`span[data-row="${x}"][data-col="${y}"]`);
+                squareElement.classList.add('in-check');
+            }
         }
     }
     else if(boarddisplay[x1][y1].getPiece().getName() === "Rook")
     {
-        if (board.moveRook(x1, y1, x2, y2)) {
+        if (board.moveRook(x1, y1, x2, y2)){
             turn = 0;
+            let x = board.getBlackKingx();
+            let y = board.getBlackKingy();
+            if (board.inCheck("black", x, y)) {
+                // Get the square element and add the 'in-check' class
+                const squareElement = document.querySelector(`span[data-row="${x}"][data-col="${y}"]`);
+                squareElement.classList.add('in-check');
+            }
         }
     }
     else if(boarddisplay[x1][y1].getPiece().getName() === "Queen")
     {
-        if (board.moveQueen(x1, y1, x2, y2)) {
+        if (board.moveQueen(x1, y1, x2, y2)){
             turn = 0;
+            let x = board.getBlackKingx();
+            let y = board.getBlackKingy();
+            if (board.inCheck("black", x, y)) {
+                // Get the square element and add the 'in-check' class
+                const squareElement = document.querySelector(`span[data-row="${x}"][data-col="${y}"]`);
+                squareElement.classList.add('in-check');
+            }
         }
     } 
     else if(boarddisplay[x1][y1].getPiece().getName() === "King")
@@ -201,12 +237,26 @@ if (boarddisplay[x1][y1].getPiece().getName() === "Pawn") {
         {
             if(board.canCastle("white",x1, y1, x2, y2))
             turn = 0;
+            let x = board.getBlackKingx();
+            let y = board.getBlackKingy();
+            if (board.inCheck("black", x, y)) {
+                // Get the square element and add the 'in-check' class
+                const squareElement = document.querySelector(`span[data-row="${x}"][data-col="${y}"]`);
+                squareElement.classList.add('in-check');
+            }
         }
-        else if (board.moveKing(x1, y1, x2, y2)) {
+        else if (board.moveKing(x1, y1, x2, y2)){
             turn = 0;
+            let x = board.getBlackKingx();
+            let y = board.getBlackKingy();
+            if (board.inCheck("black", x, y)) {
+                // Get the square element and add the 'in-check' class
+                const squareElement = document.querySelector(`span[data-row="${x}"][data-col="${y}"]`);
+                squareElement.classList.add('in-check');
+            }
         }
     }    
-    } else if (turn === 0 && boarddisplay[x1][y1].getPiece().getColor()!=="black") {
+    } else if (turn === 0 && boarddisplay[x1][y1].getPiece().getColor()!=="black"){
         alert("ERROR: It's blacks's turn to play");
     }else if(turn === 0 && boarddisplay[x1][y1].getPiece().getColor()==="black"){
         if(boarddisplay[x1][y1].getPiece().getName() === "Pawn")
@@ -263,30 +313,65 @@ if (boarddisplay[x1][y1].getPiece().getName() === "Pawn") {
                     // Append the promotion div to the body
                     document.body.appendChild(promotionDiv);
                 }
+                let x = board.getWhiteKingx();
+                let y = board.getWhiteKingy();
+                if (board.inCheck("white", x, y)) {
+                    // Get the square element and add the 'in-check' class
+                    const squareElement = document.querySelector(`span[data-row="${x}"][data-col="${y}"]`);
+                    squareElement.classList.add('in-check');
+                }
             }
         }
         else if(boarddisplay[x1][y1].getPiece().getName() === "Bishop")
     {
-        if (board.moveBishop(x1, y1, x2, y2)) {
+        if (board.moveBishop(x1, y1, x2, y2)){
             turn = 1;
+            let x = board.getWhiteKingx();
+            let y = board.getWhiteKingy();
+            if (board.inCheck("white", x, y)) {
+                // Get the square element and add the 'in-check' class
+                const squareElement = document.querySelector(`span[data-row="${x}"][data-col="${y}"]`);
+                squareElement.classList.add('in-check');
+            }
         }
     } 
     else if(boarddisplay[x1][y1].getPiece().getName() === "Knight")
     {
-        if (board.moveKnight(x1, y1, x2, y2)) {
+        if (board.moveKnight(x1, y1, x2, y2)){
             turn = 1;
+            let x = board.getWhiteKingx();
+            let y = board.getWhiteKingy();
+            if (board.inCheck("white", x, y)) {
+                // Get the square element and add the 'in-check' class
+                const squareElement = document.querySelector(`span[data-row="${x}"][data-col="${y}"]`);
+                squareElement.classList.add('in-check');
+            }
         }
     } 
     else if(boarddisplay[x1][y1].getPiece().getName() === "Rook")
     {
-        if (board.moveRook(x1, y1, x2, y2)) {
+        if (board.moveRook(x1, y1, x2, y2)){
             turn = 1;
+            let x = board.getWhiteKingx();
+            let y = board.getWhiteKingy();
+            if (board.inCheck("white", x, y)) {
+                // Get the square element and add the 'in-check' class
+                const squareElement = document.querySelector(`span[data-row="${x}"][data-col="${y}"]`);
+                squareElement.classList.add('in-check');
+            }
         }
     } 
     else if(boarddisplay[x1][y1].getPiece().getName() === "Queen")
     {
-        if (board.moveQueen(x1, y1, x2, y2)) {
+        if (board.moveQueen(x1, y1, x2, y2)){
             turn = 1;
+            let x = board.getWhiteKingx();
+            let y = board.getWhiteKingy();
+            if (board.inCheck("white", x, y)) {
+                // Get the square element and add the 'in-check' class
+                const squareElement = document.querySelector(`span[data-row="${x}"][data-col="${y}"]`);
+                squareElement.classList.add('in-check');
+            }
         }
     }  
     else if(boarddisplay[x1][y1].getPiece().getName() === "King")
@@ -294,9 +379,23 @@ if (boarddisplay[x1][y1].getPiece().getName() === "Pawn") {
         if(Number(x2)===Number(0)&& Number(y2)===Number(2) || Number(x2)===Number(0)&& Number(y2)===Number(6) &&( Number(y1)-Number(y2)==Number(2) ||Number(y1)-Number(y2)==Number(-2) ))
         {if(board.canCastle("black",x1, y1, x2, y2))
             turn = 1;
+            let x = board.getWhiteKingx();
+            let y = board.getWhiteKingy();
+            if (board.inCheck("white", x, y)) {
+                // Get the square element and add the 'in-check' class
+                const squareElement = document.querySelector(`span[data-row="${x}"][data-col="${y}"]`);
+                squareElement.classList.add('in-check');
+            }
         }
-        else if (board.moveKing(x1, y1, x2, y2)) {
+        else if (board.moveKing(x1, y1, x2, y2)){
             turn = 1;
+            let x = board.getWhiteKingx();
+            let y = board.getWhiteKingy();
+            if (board.inCheck("white", x, y)) {
+                // Get the square element and add the 'in-check' class
+                const squareElement = document.querySelector(`span[data-row="${x}"][data-col="${y}"]`);
+                squareElement.classList.add('in-check');
+            }
         }
     }
     } 

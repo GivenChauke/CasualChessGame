@@ -52,3 +52,6 @@ span:hover {
 #promotionDiv span:hover {
     background-color: #ddd;
 }
+.in-check {
+    border: 2px solid red; /* You can customize the styling */
+}
