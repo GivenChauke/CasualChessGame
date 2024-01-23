@@ -169,8 +169,10 @@ if (boarddisplay[x1][y1].getPiece().getName() === "Pawn"){
             // Append the promotion div to the body
             document.body.appendChild(promotionDiv);
         }
+        //board.getBlackKingx();
         let x = board.getBlackKingx();
         let y = board.getBlackKingy();
+        //console.log("x:", x, "y:", y);
         if (board.inCheck("black", x, y)) {
             // Get the square element and add the 'in-check' class
             const squareElement = document.querySelector(`span[data-row="${x}"][data-col="${y}"]`);

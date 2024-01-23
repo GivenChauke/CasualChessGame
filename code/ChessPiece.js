@@ -1684,7 +1684,7 @@ class ChessBoard{
      */
     moveKnight(x1,y1,x2,y2)
     {
-        if(Number(y1)-Number(2) === Number(y2) && Number(x1)+Number(1) === Number(x2) ||Number(x1)-Number(1) === Number(x2) )
+        if((Number(y1)-Number(2) === Number(y2)) && (Number(x1)+Number(1) === Number(x2) ||Number(x1)-Number(1) === Number(x2) ))
         {
             if(this.board[x2][y2].getName() !== "square")
             {
@@ -1717,7 +1717,7 @@ class ChessBoard{
             this.makeMove(x1,y1,x2,y2);
             return true;
         }
-        else if(Number(y1)+Number(2) === Number(y2) && Number(x1)+Number(1) === Number(x2) ||Number(x1)-Number(1) === Number(x2))
+        else if((Number(y1)+Number(2) === Number(y2)) && (Number(x1)+Number(1) === Number(x2) ||Number(x1)-Number(1) === Number(x2)))
         {
             if(this.board[x2][y2].getName() !== "square")
             {
@@ -1750,7 +1750,7 @@ class ChessBoard{
             this.makeMove(x1,y1,x2,y2);
             return true;
         }
-        else if(Number(x1)+Number(2) === Number(x2) && Number(y1)+Number(1) === Number(y2) ||Number(y1)-Number(1) === Number(y2))
+        else if((Number(x1)+Number(2) === Number(x2)) && (Number(y1)+Number(1) === Number(y2) ||Number(y1)-Number(1) === Number(y2)))
         {
             if(this.board[x2][y2].getName() !== "square")
             {
@@ -1783,7 +1783,7 @@ class ChessBoard{
             this.makeMove(x1,y1,x2,y2);
             return true;
         }
-        else if(Number(x1)-Number(2) === Number(x2) && Number(y1)+Number(1) === Number(y2) ||Number(y1)-Number(1) === Number(y2))
+        else if((Number(x1)-Number(2) === Number(x2)) && (Number(y1)+Number(1) === Number(y2) ||Number(y1)-Number(1) === Number(y2)))
         {
             if(this.board[x2][y2].getName() !== "square")
             {
@@ -1870,24 +1870,25 @@ class ChessBoard{
      */
     knightHelper(x1,y1,x2,y2)
     {
-        if(Number(y1)-Number(2) === Number(y2) && Number(x1)+Number(1) === Number(x2) ||Number(x1)-Number(1) === Number(x2) )
+        if((Number(y1)-Number(2) === Number(y2)) && (Number(x1)+Number(1) === Number(x2) ||Number(x1)-Number(1) === Number(x2)))
         {
-            if(this.board[x2][y2].getName() === "square") return false;
+            //console.log("log1");
             return true;
         }
-        else if(Number(y1)+Number(2) === Number(y2) && Number(x1)+Number(1) === Number(x2) ||Number(x1)-Number(1) === Number(x2))
+        else if((Number(y1)+Number(2) === Number(y2)) && (Number(x1)+Number(1) === Number(x2) ||Number(x1)-Number(1) === Number(x2)))
         {
-            if(this.board[x2][y2].getName() === "square") return false;
+            //console.log("log2");
             return true;
         }
-        else if(Number(x1)+Number(2) === Number(x2) && Number(y1)+Number(1) === Number(y2) ||Number(y1)-Number(1) === Number(y2))
+        else if((Number(x1)+Number(2) === Number(x2)) && (Number(y1)+Number(1) === Number(y2) ||Number(y1)-Number(1) === Number(y2)))
         {
-            if(this.board[x2][y2].getName() === "square") return false;
+
+            //console.log("log3");
             return true;
         }
-        else if(Number(x1)-Number(2) === Number(x2) && Number(y1)+Number(1) === Number(y2) ||Number(y1)-Number(1) === Number(y2))
+        else if((Number(x1)-Number(2) === Number(x2))&& (Number(y1)+Number(1) === Number(y2) ||Number(y1)-Number(1) === Number(y2)))
         {
-            if(this.board[x2][y2].getName() === "square") return false;
+            //console.log("log4");
             return true;
         }
         else {
@@ -1904,11 +1905,6 @@ class ChessBoard{
      */
     queenHelper(x1,y1,x2,y2)
     {
-        console.log("x2:", x2, "y2:", y2);
-        console.log("this.board:", this.board);
-        console.log("this.board[x2]:", this.board[x2]);
-        console.log("this.board[x2][y2]:", this.board[x2][y2]);
-
         if(this.board[x2][y2].getName() === "square") return false;
         if((this.board[x1][y1].getPiece().getColor()==="black" && this.board[x2][y2].getPiece().getColor()!=="black") ||(this.board[x1][y1].getPiece().getColor()==="white" && this.board[x2][y2].getPiece().getColor()!=="white"))//black bishop captures
         {
@@ -1928,6 +1924,76 @@ class ChessBoard{
                     return true;
                 }
                 else if(this.rookLeft(x1,y1,x2,y2,true)){
+                    return true;
+                }
+                else if(this.rookRight(x1,y1,x2,y2,true))
+                {
+                    return true;
+                }
+                else if(this.rookUp(x1,y1,x2,y2,true))
+                {
+                    return true;
+                }
+                else if(this.rookDown(x1,y1,x2,y2,true))
+                {
+                    return true;
+                }
+                else{
+                    return false;
+                }
+        }
+        else{
+            return false;
+        }
+    }
+    /**
+     * helper function that checks a valid bishop capture 
+     * @param {departure x position} x1 
+     * @param {departure y position} y1 
+     * @param {destination x position} x2 
+     * @param {destination y position} y2 
+     */
+    bishopHelper(x1,y1,x2,y2)
+    {
+        if(this.board[x2][y2].getName() === "square") return false;
+        if((this.board[x1][y1].getPiece().getColor()==="black" && this.board[x2][y2].getPiece().getColor()!=="black") ||(this.board[x1][y1].getPiece().getColor()==="white" && this.board[x2][y2].getPiece().getColor()!=="white"))//black bishop captures
+        {
+                if(this.br(x1,y1,x2,y2,true)){
+                    return true;
+                }
+                else if(this.bl(x1,y1,x2,y2,true))
+                {
+                    return true;
+                }
+                else if(this.tr(x1,y1,x2,y2,true))
+                {
+                    return true;
+                }
+                else if(this.tl(x1,y1,x2,y2,true))
+                {
+                    return true;
+                }
+                else{
+                    return false;
+                }
+        }
+        else{
+            return false;
+        }
+    }
+    /**
+     * helper function that checks a valid rook capture 
+     * @param {departure x position} x1 
+     * @param {departure y position} y1 
+     * @param {destination x position} x2 
+     * @param {destination y position} y2 
+     */
+    rookHelper(x1,y1,x2,y2)
+    {
+        if(this.board[x2][y2].getName() === "square") return false;
+        if((this.board[x1][y1].getPiece().getColor()==="black" && this.board[x2][y2].getPiece().getColor()!=="black") ||(this.board[x1][y1].getPiece().getColor()==="white" && this.board[x2][y2].getPiece().getColor()!=="white"))//black bishop captures
+        {
+               if(this.rookLeft(x1,y1,x2,y2,true)){
                     return true;
                 }
                 else if(this.rookRight(x1,y1,x2,y2,true))
@@ -2115,32 +2181,37 @@ class ChessBoard{
      */
     inCheck(color,x1,y1)
     {
+        //console.log("Original x1:", x1, "y1:", y1);
         for (let i = 0; i < this.board.length; i++) {
             for(let k = 0;k < this.board[i].length;k++)
             {
-                if(this.board[i][k].getColor()!==color&& this.board[i][k].getName()==="Bishop")
+                if(this.board[i][k].getName()!=="square"&&this.board[i][k].getPiece().getColor()!==color&& this.board[i][k].getName()==="Bishop")
                 {
-                    if(this.tr(i,k,x1,y1,true)||this.tl(i,k,x1,y1,true)||this.br(i,k,x1,y1,true)||this.bl(i,k,x1,y1,true))
+                    if(this.bishopHelper(i,k,x1,y1))
                     return true;
                 }
-                else if(this.board[i][k].getColor()!==color&& this.board[i][k].getName()==="Rook")
+                //console.log("x1:", x1, "y1:", y1);
+                if(this.board[i][k].getName()!=="square"&&this.board[i][k].getPiece().getColor()!==color&& this.board[i][k].getName()==="Rook")
                 {
-                    if(this.rookDown(i,k,x1,y1,true)||this.rookLeft(i,k,x1,y1,true)||this.rookRight(i,k,x1,y1,true)||this.rookUp(i,k,x1,y1,true))
+                    if(this.rookHelper(i,k,x1,y1))
                     {
                         return true;
                     }
                 }
-                else if(this.board[i][k].getColor()!==color&& this.board[i][k].getName()==="Knight")
+                //console.log("x1:", x1, "y1:", y1);
+                if(this.board[i][k].getName()!=="square"&&this.board[i][k].getPiece().getColor()!==color&& this.board[i][k].getName()==="Knight")
                 {
                     if(this.knightHelper(i,k,x1,y1))
                     return true;
                 }
-                else if(this.board[i][k].getColor()!==color&& this.board[i][k].getName()==="Queen")
+                //console.log("x1:", x1, "y1:", y1);
+                if(this.board[i][k].getName()!=="square"&&this.board[i][k].getPiece().getColor()!==color&& this.board[i][k].getName()==="Queen")
                 {
                     if(this.queenHelper(i,k,x1,y1))
                     return true;
                 }
-                else if(Number(i)=== Number(x1)+ Number(1)||Number(i)=== Number(x1)-Number(1) && Number(k)=== Number(y1)+Number(1)||Number(k)=== Number(y1)-Number(1))
+                //console.log("x1:", x1, "y1:", y1);
+                if((this.board[i][k].getName()!=="square"&&this.board[i][k].getPiece().getColor()!==color&& this.board[i][k].getName()==="Pawn")&&(Number(i)=== Number(x1)+ Number(1)||Number(i)=== Number(x1)-Number(1) && Number(k)=== Number(y1)+Number(1)||Number(k)=== Number(y1)-Number(1)))
                 {
                     if(this.pawnHelper(i,k,x1,y1))
                     return true;
@@ -2156,7 +2227,7 @@ class ChessBoard{
         for (let i = 0; i < this.board.length; i++) {
             for(let k = 0;k < this.board[i].length;k++)
             {
-                if(this.board[i][k].getColor() ==="white" && this.board[i][k].getName()==="King")
+                if(this.board[i][k].getName()!=="square"&&this.board[i][k].getPiece().getColor() ==="white" && this.board[i][k].getName()==="King")
                 return k;
             }
         }
@@ -2169,7 +2240,7 @@ class ChessBoard{
         for (let i = 0; i < this.board.length; i++) {
             for(let k = 0;k < this.board[i].length;k++)
             {
-                if(this.board[i][k].getColor() ==="white" && this.board[i][k].getName()==="King")
+                if(this.board[i][k].getName()!=="square"&&this.board[i][k].getPiece().getColor() ==="white" && this.board[i][k].getName()==="King")
                 return i;
             }
         }
@@ -2179,11 +2250,15 @@ class ChessBoard{
      */
     getBlackKingx()
     {
-        for (let i = 0; i < this.board.length; i++) {
-            for(let k = 0;k < this.board[i].length;k++)
+        for (let i = 0; i < 8; i++) {
+            for(let k = 0;k < 8;k++)
             {
-                if(this.board[i][k].getColor() ==="black" && this.board[i][k].getName()==="King")
-                return i;
+                //console.log(this.board[i][k].getName()+" "+this.board[i][k].getColor());
+                if(this.board[i][k].getName()!=="square"&&this.board[i][k].getPiece().getColor() ==="black" && this.board[i][k].getName()==="King")
+                {
+                    //console.log(i);
+                    return i;
+                }
             }
         }
     }
@@ -2195,7 +2270,7 @@ class ChessBoard{
         for (let i = 0; i < this.board.length; i++) {
             for(let k = 0;k < this.board[i].length;k++)
             {
-                if(this.board[i][k].getColor() ==="black" && this.board[i][k].getName()==="King")
+                if(this.board[i][k].getName()!=="square"&&this.board[i][k].getPiece().getColor() ==="black" && this.board[i][k].getName()==="King")
                 return k;
             }
         }
